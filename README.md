@@ -45,8 +45,7 @@ https://github.com/dylanbaud/crazy-charly-day
 
 ## URL ##
 
-- des dépôts git
-- de l'application finale
+- http://docketu.iutnc.univ-lorraine.fr:45556)
 
 ##  Partie application Web##
 
