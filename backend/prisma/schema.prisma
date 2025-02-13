@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model account {
+  id             Int              @id @default(autoincrement())
+  email          String           @unique(map: "email") @db.VarChar(255)
+  last_name      String           @db.VarChar(255)
+  first_name     String           @db.VarChar(255)
+  tel            String           @unique(map: "tel") @db.VarChar(12)
+  type           account_type
+  valid          Boolean
+  need           need[]
+  skill_interest skill_interest[]
+}
+
+model need {
+  id          Int     @id @default(autoincrement())
+  customer_id Int
+  description String  @db.VarChar(255)
+  skill_id    Int
+  account     account @relation(fields: [customer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "customer_key")
+  skill       skill   @relation(fields: [skill_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "skill_key")
+
+  @@index([customer_id], map: "customer_key")
+  @@index([skill_id], map: "skill_key")
+}
+
+model skill {
+  id             Int              @id @default(autoincrement())
+  title          String           @db.VarChar(255)
+  need           need[]
+  skill_interest skill_interest[]
+}
+
+model skill_interest {
+  employee_id Int
+  skill_id    Int
+  interest    Int
+  account     account @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "employee_key")
+  skill       skill   @relation(fields: [skill_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "skill_key2")
+
+  @@id([employee_id, skill_id])
+  @@index([skill_id], map: "skill_key2")
+}
+
+enum account_type {
+  customer
+  employee
+  administrator
+}
