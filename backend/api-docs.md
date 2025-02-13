@@ -182,3 +182,14 @@ Cette route permet de récupérer l'ensemble des employés.
   "tel":"0677889910",
 }
 ```
+
+### Get all needs
+
+```http
+GET /needs
+```
+
+#### Description:
+Cette route permet de récupérer l'ensemble des besoins.
+
+#### Réponse:
