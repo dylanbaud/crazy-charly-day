@@ -16,9 +16,9 @@ function initAccounts(app, prisma) {
     app.get('/employees/:empId', async (req, res) => {
         try {
             const {empId} = req.params;
-            const employee = await prisma.account.findMany({
+            const employee = await prisma.account.findUnique({
                 where: {
-                    id: empId
+                    id: parseInt(empId)
                 }
             });
             res.json(employee);
