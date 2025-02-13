@@ -56,16 +56,17 @@ function initAccounts(app, prisma) {
             const employees = await prisma.account.findMany({
                 where: {
                     type: "employee",
-                        tasks: {
-                            some: {
-                                finished: false
-                            }
-                        }
+                    task_task_employee_idToaccount: {
+                        none: {
+                            finished: false,
+                        },
+                    }
                 },
                 include: {
-                    tasks: true,
-                }
+                    task_task_employee_idToaccount: true,
+                },
             });
+
 
             res.json(employees);
         } catch (error) {
