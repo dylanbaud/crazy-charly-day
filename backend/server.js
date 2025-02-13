@@ -3,6 +3,7 @@ const {initAccounts} = require("./accounts");
 const {initNeeds} = require("./needs");
 const {initSkills} = require("./skills");
 const {initTasks} = require("./tasks");
+const {initAlgorithm} = require("./algorithm");
 
 const express = require('express');
 const cors = require('cors');
@@ -35,3 +36,4 @@ initNeeds(app, prisma);
 initSkills(app, prisma);
 initAccounts(app, prisma);
 initTasks(app, prisma);
+initAlgorithm(app);
