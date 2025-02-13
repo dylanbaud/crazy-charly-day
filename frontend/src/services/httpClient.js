@@ -107,6 +107,14 @@ const getBacktracking = () => {
   return request('/backtracking', 'GET')
 }
 
+const getUnvalidatedEmployees = () => {
+  return request('/unvalidated-employees', 'GET')
+}
+
+const validateEmployee = (employee_id) => {
+  return request(`/validate-employee/${employee_id}`, 'PUT')
+}
+
 export {
   getSkills,
   createSkill,
@@ -120,4 +128,6 @@ export {
   getGlouton,
   getBacktracking,
   deleteSkill,
+  getUnvalidatedEmployees,
+  validateEmployee,
 }

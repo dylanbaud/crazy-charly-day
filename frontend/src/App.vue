@@ -40,6 +40,8 @@ export default {
           <RouterLink v-if="isAdmin" :to="{ name: 'skills-list' }">Liste des compétences</RouterLink>
           <RouterLink v-if="isAdmin" :to="{ name: 'create-employee' }">Créer un employé</RouterLink>
           <RouterLink v-if="isAdmin" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink>
+          <RouterLink v-if="isAdmin" :to="{ name: 'valid-employee' }">Valider les employés</RouterLink>
+
           <RouterLink :to="{ name: 'login' }">Login</RouterLink>
           <LoginStatus />
         </nav>

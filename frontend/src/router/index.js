@@ -4,12 +4,13 @@ import CreateBesoin from '@/components/CreateBesoin.vue'
 import CreateSkills from '@/components/CreateSkills.vue'
 import LoginComp from '@/components/LoginComp.vue'
 import { useAuthStore } from '@/stores/authStore'
-import NeedsList from '@/components/NeedsList.vue'
 import CreateEmployee from '@/components/CreateEmployee.vue'
 import NeedsCustomerList from '@/components/NeedsCustomerList.vue'
 import EmployeesList from '@/components/EmployeesList.vue'
 import SkillsList from '@/components/SkillsList.vue'
+import NeedsList from '@/components/NeedsList.vue'
 import AffectTask from '@/components/AffectTask.vue'
+import ValidEmployee from '@/components/ValidEmployee.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -70,6 +71,12 @@ const router = createRouter({
       path: '/needslist',
       name: 'needs-list',
       component: NeedsList,
+      meta: { requireAdmin: true },
+    },
+    {
+      path: '/validemployee',
+      name: 'valid-employee',
+      component: ValidEmployee,
       meta: { requireAdmin: true },
     },
   ],
