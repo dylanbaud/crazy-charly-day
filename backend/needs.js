@@ -20,7 +20,7 @@ function initNeeds(app, prisma) {
     });
 
     //create need
-    app.post('/need', async (req, res) => {
+    app.post('/needs', async (req, res) => {
         try {
             const {customer_id, description, skill_id} = req.body;
 
@@ -91,7 +91,7 @@ function initNeeds(app, prisma) {
     });
 
     //update need
-    app.put('/need/:id', async (req, res) => {
+    app.put('/needs/:id', async (req, res) => {
         try {
             const {id} = req.params;
             const {description, skill_id} = req.body;

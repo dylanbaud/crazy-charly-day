@@ -2,10 +2,7 @@ const AlgoInterface = require('./AlgoInterface');
 
 class AlgoGlouton extends AlgoInterface {
     optimizeAssignments(needs, employees) {
-        let assignments = [];
-        let clientNeedsCount = {};
-        let employeeAssigned = new Set();
-        let clientServed = new Set();
+        let assignments = {};
         let totalScore = 0;
 
         for (let need of needs) {
@@ -13,8 +10,8 @@ class AlgoGlouton extends AlgoInterface {
             let bestScore = -1;
 
             for (let emp of employees) {
-                if (emp.skill === need.type && !employeeAssigned.has(emp.name)) {
-                    let score = emp.interest - (clientNeedsCount[need.client] || 0);
+                if (emp.skill === need.type) {
+                    let score = emp.interest;
                     if (score > bestScore) {
                         bestScore = score;
                         bestMatch = emp;
@@ -23,19 +20,20 @@ class AlgoGlouton extends AlgoInterface {
             }
 
             if (bestMatch) {
-                assignments.push({ employee: bestMatch.name, needType: need.type, client: need.client });
-                employeeAssigned.add(bestMatch.name);
-                clientNeedsCount[need.client] = (clientNeedsCount[need.client] || 0) + 1;
-                clientServed.add(need.client);
-                totalScore += Math.max(1, bestMatch.interest - (clientNeedsCount[need.client] - 1));
+                assignments[need.id] = bestMatch.id;
+                totalScore += bestMatch.interest;
+                employees = employees.filter(emp => emp.name !== bestMatch.name);
+            } else {
+                totalScore -= 10;
             }
         }
 
-        let unassignedEmployees = employees.filter(emp => !employeeAssigned.has(emp.name));
-        totalScore -= unassignedEmployees.length * 10;
-        totalScore -= (new Set(needs.map(n => n.client)).size - clientServed.size) * 10;
+        if (employees.length > 0) {
+            totalScore -= employees.length * 10;
+        }
 
-        return { totalScore, assignments };
+
+        return {totalScore, assignments};
     }
 }
 

@@ -97,7 +97,7 @@ Cette route permet de supprimer une compétence.
 ### Get a skill
 
 ```http
-GET /skill/:id
+GET /skills/:id
 ```
 
 #### Description:
@@ -153,7 +153,7 @@ Cette route permet de récupérer l'ensemble des employés.
 ### Create an employee
 
 ```http
-POST /employee
+POST /employees
 ```
 
 #### Description:
@@ -215,7 +215,7 @@ Cette route permet de se connecter.
 ### Get an account by id
 
 ```http
-GET /account/:id
+GET /accounts/:id
 ```
 
 #### Description:
