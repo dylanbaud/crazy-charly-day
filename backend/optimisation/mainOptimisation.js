@@ -32,10 +32,34 @@ async function getSkillInterestFromDB() {
         });
 }
 
-// Sauvegarde des résultats en CSV
-function saveResults(filePath, results) {
-    console.log(results);
+// Sauvegarde des résultats en CSV et en BD
+async function saveResults(filePath, results) {
     let output = [`${results.totalScore}`];
+    for (let i in results.assignments) {
+        output.push(`${results.assignments[i].employee.first_name};${results.assignments[i].need.skill.title};${results.assignments[i].need.account.first_name}`);
+        const today = new Date();
+        const finishDate = new Date(today);
+        finishDate.setDate(finishDate.getDate() + 1);
+        const response = await fetch('http://localhost:4000/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                need_id: results.assignments[i].need.id,
+                employee_id: results.assignments[i].employee.id,
+                start_date: today,
+                finish_date: finishDate,
+            }),
+        }).catch(error => {
+            console.error('Erreur lors de la l\'écriture de tâche dans la bd :', error);
+        });
+
+        if (!response.ok) {
+            console.error('Erreur lors de l\'écriture de tâche dans la bd :', response.statusText);
+        }
+    }
+
     fs.writeFileSync(filePath, output.join('\n'), 'utf8');
 }
 

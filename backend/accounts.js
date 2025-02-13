@@ -66,6 +66,7 @@ function initAccounts(app, prisma) {
                 },
                 include: {
                     task_task_employee_idToaccount: true,
+                    skill_interest: true
                 },
             });
 

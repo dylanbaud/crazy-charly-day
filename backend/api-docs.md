@@ -307,6 +307,40 @@ Cette route permet de récupérer l'ensemble des besoins.
 ]
 ```
 
+### Get needs from page
+
+```http
+GET /needs?page=[pageNumber]
+```
+
+#### Description:
+
+Cette route permet de récupérer les needs d'une page.
+
+#### Réponse:
+
+```json
+[
+  {
+    "id": 1,
+    "customer": {
+      "id": 1,
+      "email": "albert.morel@email.com",
+      "last_name": "Morel",
+      "first_name": "Albert",
+      "tel": "+33 6 12 34 56 78",
+      "type": "customer",
+      "valid": true
+    },
+    "skill": {
+      "id": 1,
+      "title": "BR",
+      "description": "Bricolage"
+    }
+  }
+]
+```
+
 ### Create a need
 
 ```http

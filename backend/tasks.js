@@ -12,8 +12,8 @@ function initTasks(app, prisma) {
 
             const task = await prisma.task.create({
                 data: {
-                    need_id,
-                    employee_id,
+                    need_id: parseInt(need_id),
+                    employee_id: parseInt(employee_id),
                     start_date,
                     finish_date,
                 }
