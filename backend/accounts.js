@@ -51,6 +51,28 @@ function initAccounts(app, prisma) {
         }
     });
 
+    app.get("/free-employees", async (req, res) => {
+        try {
+            const employees = await prisma.account.findMany({
+                where: {
+                    type: "employee",
+                        tasks: {
+                            some: {
+                                finished: false
+                            }
+                        }
+                },
+                include: {
+                    tasks: true,
+                }
+            });
+
+            res.json(employees);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    })
+
     app.post('/employee', async (req, res) => {
         try {
             const {email, lastName, firstName, tel, skills} = req.body;
