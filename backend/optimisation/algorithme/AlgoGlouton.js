@@ -1,6 +1,6 @@
-const AlgoOptimisation = require('./algoInterface');
+const AlgoInterface = require('./AlgoInterface');
 
-class AlgoSimple extends AlgoOptimisation {
+class AlgoGlouton extends AlgoInterface {
     optimizeAssignments(needs, employees) {
         let assignments = [];
         let clientNeedsCount = {};
@@ -39,4 +39,4 @@ class AlgoSimple extends AlgoOptimisation {
     }
 }
 
-module.exports = AlgoSimple;
+module.exports = AlgoGlouton;
