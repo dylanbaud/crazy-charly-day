@@ -113,7 +113,7 @@ Cette route permet de récupérer une compétence.
 }
 ```
 
-## Employees :
+## Accounts :
 
 ### Get all employees
 
@@ -181,6 +181,58 @@ Cette route permet de récupérer l'ensemble des employés.
   "lastName": "FONTANEZ",
   "firstName": "Antoine",
   "tel": "0677889910"
+}
+```
+
+### Login
+
+```http
+POST /login
+```
+
+#### Description:
+
+Cette route permet de se connecter.
+
+#### Paramètres:
+
+- `email`: Email de l'utilisateur
+
+#### Réponse:
+
+```json
+{
+  "id": 1,
+  "email": "albert.morel@email.com",
+  "last_name": "Morel",
+  "first_name": "Albert",
+  "tel": "+33 6 12 34 56 78",
+  "type": "employee",
+  "valid": true
+}
+```
+
+### Get an account by id
+
+```http
+GET /account/:id
+```
+
+#### Description:
+
+Cette route permet de récupérer un compte.
+
+#### Réponse:
+
+```json
+{
+  "id": 1,
+  "email": "albert.morel@email.com",
+  "last_name": "Morel",
+  "first_name": "Albert",
+  "tel": "+33 6 12 34 56 78",
+  "type": "employee",
+  "valid": true
 }
 ```
 

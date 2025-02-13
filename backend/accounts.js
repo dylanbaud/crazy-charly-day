@@ -30,6 +30,13 @@ function initAccounts(app, prisma) {
     app.post('/login', async (req, res) => {
         try {
             const {email} = req.body;
+
+            if (email == null) {
+                res.status(400).json({
+                    message: 'Missing arguments',
+                })
+            }
+
             const employee = await prisma.account.findFirst({
                 where: {
                     email: email
