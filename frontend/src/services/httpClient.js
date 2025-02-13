@@ -1,5 +1,5 @@
-const BASE_URL = 'http://docketu.iutnc.univ-lorraine.fr:45555'
-//const BASE_URL = 'http://localhost:4000'
+//const BASE_URL = 'http://docketu.iutnc.univ-lorraine.fr:45555'
+const BASE_URL = 'http://localhost:4000'
 const request = async (
   endpoint,
   method = 'GET',
@@ -64,9 +64,10 @@ const createNeed = (customer_id, description, skill_id) => {
   return request('/needs', 'POST', true, body)
 }
 
-const getUser = (email) => {
+const getUser = (email, password) => {
   const body = {
     email: email,
+    password: password,
   }
   return request(`/login`, 'POST', true, body)
 }
@@ -79,6 +80,17 @@ const getNeedsCustomer = (customer_id) => {
   return request(`/needs/${customer_id}`, 'GET')
 }
 
+const createUser = (email, lastName, firstName, tel, skills, password) => {
+  const body = {
+    email: email,
+    lastName: lastName,
+    firstName: firstName,
+    tel: tel,
+    skills: skills,
+    password: password,
+  }
+  return request('/employees', 'POST', true, body)
+}
 const getEmployees = () => {
   return request('/employees', 'GET')
 }
@@ -95,6 +107,14 @@ const getBacktracking = () => {
   return request('/backtracking', 'GET')
 }
 
+const getUnvalidatedEmployees = () => {
+  return request('/unvalidated-employees', 'GET')
+}
+
+const validateEmployee = (employee_id) => {
+  return request(`/validate-employee/${employee_id}`, 'PUT')
+}
+
 export {
   getSkills,
   createSkill,
@@ -102,9 +122,12 @@ export {
   getUser,
   getNeeds,
   getNeedsCustomer,
+  createUser,
   getEmployees,
   getGaleEtShapley,
   getGlouton,
   getBacktracking,
   deleteSkill,
+  getUnvalidatedEmployees,
+  validateEmployee,
 }

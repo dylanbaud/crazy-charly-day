@@ -1,0 +1,15 @@
+meta {
+  name: create employee
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{api}}/employees
+  body: json
+  auth: none
+}
+
+body:json {
+  {email, lastName, firstName, tel, skills}
+}

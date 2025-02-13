@@ -1,6 +1,6 @@
 const fs = require('fs');
 // Ligne ci-dessous à changer selon l'algorithme utilisé
-const Algo = require('./algorithme/AlgoGlouton');
+const Algo = require('./algorithme/AlgoBacktracking');
 
 /**
  * Fonction asynchrone pour reprendre les données de la BD.
@@ -31,12 +31,12 @@ async function getNeedsFromDB() {
 }
 
 /**
- * Fonction pour récupérer les employées et leurs intérêts pour les compétences.
+ * Fonction pour récupérer les employées libres et leurs intérêts pour les compétences.
  * @returns {Promise<any>} Promesse contenant un json avec les employés et leurs intérêts pour les compétences.
  */
 async function getSkillInterestFromDB() {
-    // Fetch sur l'endpoint pour obtenir les employés
-    return await fetch('http://localhost:4000/employees')
+    // Fetch sur l'endpoint pour obtenir les employés qui sont libres (qui n'ont pas de tâches en cours)
+    return await fetch('http://localhost:4000/free-employees')
         .then(response => response.json())
         .then(data => {
             return data;
@@ -61,6 +61,8 @@ async function saveResults(filePath, results) {
         output.push(`${results.assignments[i].employee.first_name};${results.assignments[i].need.skill.title};${results.assignments[i].need.account.first_name}`);
         // On initialise la date d'aujourd'hui
         const today = new Date();
+        // On met l'heure en UTC + 1
+        today.setHours(today.getHours() + 1);
         // On initialise la date de fin de la tâche d'aujourd'hui + 1 jour
         const finishDate = new Date(today);
         finishDate.setDate(finishDate.getDate() + 1);
