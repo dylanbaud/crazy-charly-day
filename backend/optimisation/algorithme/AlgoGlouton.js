@@ -10,19 +10,22 @@ class AlgoGlouton extends AlgoInterface {
             let bestScore = -1;
 
             for (let emp of employees) {
-                if (emp.skill === need.type) {
-                    let score = emp.interest;
-                    if (score > bestScore) {
-                        bestScore = score;
-                        bestMatch = emp;
+                for (let e of emp["skill_interest"]){
+                    if (e["skill_id"] === need["skill"]["id"]) {
+                        let score = e["interest"];
+                        if (score > bestScore) {
+                            bestScore = score;
+                            bestMatch = emp;
+                        }
                     }
                 }
+
             }
 
             if (bestMatch) {
-                assignments[need.id] = bestMatch.id;
-                totalScore += bestMatch.interest;
-                employees = employees.filter(emp => emp.name !== bestMatch.name);
+                assignments[need.id] = {need: need, employee: bestMatch}
+                totalScore += bestScore;
+                employees = employees.filter(emp => emp["id"] !== bestMatch["id"]);
             } else {
                 totalScore -= 10;
             }
