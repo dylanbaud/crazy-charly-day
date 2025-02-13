@@ -2,20 +2,16 @@ const AlgoInterface = require('./AlgoInterface');
 
 class AlgoBacktracking extends AlgoInterface {
     optimizeAssignments(needs, employees) {
-        let bestAssignments = {};
-        let bestScore = -Infinity;
-
         function backtrack(index, assignments, usedEmployees, totalScore, minus) {
             if (index >= needs.length) {
-                if (totalScore > bestScore) {
-                    bestScore = totalScore;
-                    bestAssignments = { ...assignments };
-                }
-                return;
+                return {score : totalScore, assignments: assignments};
             }
 
             let need = needs[index];
             let found = false;
+
+            let bestAssignments = {};
+            let bestScore = -Infinity;
 
             for (let emp of employees) {
                 if (!usedEmployees.has(emp.id)) {
@@ -29,8 +25,13 @@ class AlgoBacktracking extends AlgoInterface {
                             let newMinus = { ...minus };
                             newMinus[need.customer_id] = (newMinus[need.customer_id] || 0) + 1;
 
-                            backtrack(index + 1, assignments, usedEmployees, totalScore + score, newMinus);
+                            const backtrackObj = backtrack(index + 1, assignments, usedEmployees, totalScore + score, newMinus);
+                            const currentScore = backtrackObj.score;
 
+                            if(currentScore > bestScore) {
+                                bestScore = currentScore;
+                                bestAssignments = backtrackObj.assignments;
+                            }
                             usedEmployees.delete(emp.id);
                             delete assignments[need.id];
                         }
@@ -39,12 +40,14 @@ class AlgoBacktracking extends AlgoInterface {
             }
 
             if (!found) {
-                backtrack(index + 1, assignments, usedEmployees, totalScore - 10, minus);
+                return backtrack(index + 1, assignments, usedEmployees, totalScore - 10, minus);
+            } else {
+                return {score:  bestScore, assignments: bestAssignments};
             }
         }
 
-        backtrack(0, {}, new Set(), 0, {});
-        return { totalScore: bestScore, assignments: bestAssignments };
+        const backtrackObj = backtrack(0, {}, new Set(), 0, {});
+        return { totalScore: backtrackObj.score, assignments: backtrackObj.assignments };
     }
 
 }
