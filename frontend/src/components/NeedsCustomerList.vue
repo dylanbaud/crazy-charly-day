@@ -1,21 +1,20 @@
 <script>
-import { getNeeds } from '@/services/httpClient';
+import { getNeedsCustomer } from '@/services/httpClient';
 import { useAuthStore } from '@/stores/authStore';
 import { mapState } from 'pinia';
 
 export default {
   data() {
     return {
-      groupedNeeds: {},
+      needs: [],
       error: '',
       currentPage: 1,
-      itemsPerPage: 6,
-    };
+      itemsPerPage: 5,
+    }
   },
   async mounted() {
     try {
-      const needs = await getNeeds();
-      this.groupedNeeds = this.groupNeedsByUser(needs);
+      this.needs = await getNeedsCustomer(this.id_user);
     } catch (e) {
       this.error = e.message;
     }
@@ -23,64 +22,37 @@ export default {
   computed: {
     ...mapState(useAuthStore, ['isAdmin', 'id_user', 'email_user']),
 
-    // Calcul dynamique du nombre total de pages
-    totalPages() {
-      let totalNeeds = 0;
-      Object.values(this.groupedNeeds).forEach((user) => {
-        totalNeeds += user.needs.length;
-      });
-      return Math.ceil(totalNeeds / this.itemsPerPage);
-    },
-
-    // Liste des besoins paginés
+    // Calcul des besoins paginés
     paginatedNeeds() {
-      const allNeeds = [];
-      Object.values(this.groupedNeeds).forEach((user) => {
-        allNeeds.push(...user.needs);
-      });
       const start = (this.currentPage - 1) * this.itemsPerPage;
       const end = start + this.itemsPerPage;
-      return allNeeds.slice(start, end);
+      return this.needs.slice(start, end);
     },
+
+    // Calcul du nombre total de pages
+    totalPages() {
+      return Math.ceil(this.needs.length / this.itemsPerPage);
+    }
   },
   methods: {
-    // Grouper les besoins par utilisateur
-    groupNeedsByUser(needs) {
-      const grouped = needs.reduce((acc, need) => {
-        const userId = need.account.id;
-        if (!acc[userId]) {
-          acc[userId] = {
-            name: `${need.account.last_name} ${need.account.first_name}`,
-            needs: [],
-          };
-        }
-        acc[userId].needs.push(need);
-        return acc;
-      }, {});
-
-      return Object.keys(grouped)
-        .sort((a, b) => a - b)
-        .reduce((sorted, key) => {
-          sorted[key] = grouped[key];
-          return sorted;
-        }, {});
-    },
-
-    // Navigation entre les pages
     nextPage() {
       if (this.currentPage < this.totalPages) this.currentPage++;
     },
     prevPage() {
       if (this.currentPage > 1) this.currentPage--;
-    },
-  },
+    }
+  }
 }
 </script>
 
 <template>
-  <div v-if="error" class="error">{{ error }}</div>
+  <!-- Titre principal -->
+  <h2 class="title">Liste de vos besoins ({{ email_user }})</h2>
 
-  <!-- Affichage des besoins paginés -->
+  <!-- Affichage d'erreur -->
+  <div class="error" v-if="error">{{ error }}</div>
+
+  <!-- Liste des besoins paginés -->
   <div class="liste">
     <div v-for="need in paginatedNeeds" :key="need.id" class="need-card">
       <h3>{{ need.description }}</h3>
@@ -91,9 +63,8 @@ export default {
     </div>
   </div>
 
-
   <!-- Pagination -->
-  <div class="pagination">
+  <div class="pagination" v-if="totalPages > 1">
     <button @click="prevPage" :disabled="currentPage === 1" class="page-btn">Précédent</button>
     <span class="page-info">Page {{ currentPage }} / {{ totalPages }}</span>
     <button @click="nextPage" :disabled="currentPage === totalPages" class="page-btn">Suivant</button>
@@ -101,15 +72,17 @@ export default {
 </template>
 
 <style lang="scss" scoped>
-h2 {
+/* Titre principal */
+.title {
   text-align: center;
   color: var(--primary-blue);
   font-size: 2rem;
   margin-bottom: 2rem;
-  border-bottom: 2px solid var(--accent-green);
+  border-bottom: 3px solid var(--accent-green);
   padding-bottom: 1rem;
 }
 
+/* Message d'erreur */
 .error {
   color: red;
   text-align: center;
@@ -120,55 +93,51 @@ h2 {
   border: 2px solid red;
   border-radius: 10px;
 }
-.liste {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-}
+
 /* Liste des besoins */
-.need-card {
-  background-color: var(--neutral-beige);
-  border: 2px solid var(--accent-green);
-  border-radius: 15px;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-  padding: 1.5rem;
-  margin: 1rem auto;
-  max-width: 300px;
-  height: 180px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  word-wrap: break-word;
+.liste {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
 
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
-  }
+  .need-card {
+    background-color: var(--neutral-beige);
+    border: 2px solid var(--accent-green);
+    border-radius: 15px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
 
-  h3 {
-    color: var(--primary-blue);
-    margin-bottom: 1rem;
-    font-size: 1.6rem;
-    border-bottom: 1px solid var(--accent-green);
-    padding-bottom: 0.5rem;
-    text-align: center;
-  }
-
-  .skill-info {
-    margin-top: 1rem;
-
-    h4 {
-      color: var(--primary-blue);
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
     }
 
-    p {
-      color: #333;
-      font-size: 1.05rem;
-      margin: 0;
-      line-height: 1.4;
+    h3 {
+      color: var(--primary-blue);
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+      border-bottom: 1px solid var(--accent-green);
+      padding-bottom: 0.5rem;
+      text-align: center;
+    }
+
+    .skill-info {
+      margin-top: 1rem;
+
+      h4 {
+        color: var(--primary-blue);
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+      }
+
+      p {
+        color: #333;
+        font-size: 1.1rem;
+        margin: 0;
+        line-height: 1.4;
+      }
     }
   }
 }
@@ -185,14 +154,14 @@ h2 {
     padding: 0.6rem 1.5rem;
     border: none;
     border-radius: 10px;
-    background-color: var(--primary-blue);
+    background: linear-gradient(135deg, var(--primary-blue), var(--accent-green));
     color: #fff;
     font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease, transform 0.2s ease;
 
     &:hover:enabled {
-      background-color: var(--accent-green);
+      filter: brightness(1.2);
       transform: translateY(-3px);
     }
 
@@ -206,25 +175,24 @@ h2 {
   .page-info {
     font-size: 1.2rem;
     color: var(--primary-blue);
+    font-weight: bold;
   }
 }
 
+/* Responsive */
 @media (max-width: 500px) {
-  h2 {
+  .title {
     font-size: 1.5rem;
   }
 
   .need-card {
-    padding: 1rem 1.5rem;
-
+    padding: 1rem;
     h3 {
       font-size: 1.3rem;
     }
-
     .skill-info h4 {
       font-size: 1rem;
     }
-
     .skill-info p {
       font-size: 0.95rem;
     }

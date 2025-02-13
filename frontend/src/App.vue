@@ -48,10 +48,12 @@ export default {
             <RouterLink to="/">Home</RouterLink>
             <RouterLink v-if="isCustomerValue" :to="{ name: 'create-need' }">Créer un besoin</RouterLink>
             <RouterLink v-if="isCustomerValue" :to="{ name: 'create-skill' }">Créer une compétence</RouterLink>
-            <RouterLink v-if="isCustomerValue" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink>
+            <RouterLink v-if="isCustomerValue" :to="{ name: 'needs-customer-list' }">Liste des besoins</RouterLink>
 
             <RouterLink v-if="isAdmin" :to="{ name: 'employees-list' }">Liste des employés</RouterLink>
+            <RouterLink v-if="isAdmin" :to="{ name: 'affect-task' }">Affecter les tâches</RouterLink>
             <RouterLink v-if="isAdmin" :to="{ name: 'skills-list' }">Liste des compétences</RouterLink>
+            <RouterLink v-if="isAdmin" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink>
 
             <RouterLink v-if="!id_user" :to="{ name: 'login' }">Login</RouterLink>
             <LoginStatus />
@@ -108,6 +110,8 @@ export default {
 
             <li><RouterLink v-if="isAdmin" :to="{ name: 'employees-list' }">Liste des employés</RouterLink></li>
             <li><RouterLink v-if="isAdmin" :to="{ name: 'skills-list' }">Liste des compétences</RouterLink></li>
+            <li><RouterLink v-if="isAdmin" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink></li>
+            <li><RouterLink v-if="isAdmin" :to="{ name: 'affect-task' }">Affecter les tâches</RouterLink></li>
 
             <li><RouterLink v-if="!id_user" :to="{ name: 'login' }">Login</RouterLink></li>
           </ul>
