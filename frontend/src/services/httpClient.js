@@ -1,4 +1,4 @@
-const BASE_URL = 'http://localhost:3001'
+const BASE_URL = 'http://localhost:4000'
 const request = async (
   endpoint,
   method = 'GET',
@@ -39,4 +39,7 @@ const request = async (
     throw error
   }
 }
-export {}
+const getSkills = () => {
+  return request('/skills', 'GET')
+}
+export { getSkills }

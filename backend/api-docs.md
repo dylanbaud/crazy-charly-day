@@ -177,19 +177,19 @@ Cette route permet de récupérer l'ensemble des employés.
 ```json
 {
   "email":"antoine.fontanez@gmail.com",
-  "lastName":"caca",
-  "firstName":"pipi",
-  "tel":"69",
-  "skills":
-    [
-      {
-        "id":1,
-        "interest":10
-      },
-      {
-        "id":2,
-        "interest":4
-      }
-    ]
+  "lastName":"FONTANEZ",
+  "firstName":"Antoine",
+  "tel":"0677889910",
 }
 ```
+
+### Get all needs
+
+```http
+GET /needs
+```
+
+#### Description:
+Cette route permet de récupérer l'ensemble des besoins.
+
+#### Réponse:

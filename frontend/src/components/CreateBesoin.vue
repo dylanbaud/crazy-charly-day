@@ -1,10 +1,33 @@
 <script>
+import { getSkills } from '@/services/httpClient';
+
 export default {
   data() {
     return {
       email_entreprise: '',
       description_besoin: '',
       competence_besoin: '',
+      skills: [],
+      error: '',
+    }
+  },
+  methods: {
+    creerBesoin() {
+      console.log('Besoin créé');
+    },
+  },
+  async mounted() {
+    try {
+      this.skills = await getSkills()
+    } catch (e) {
+      this.error = e.message;
+    }
+    console.log(this.skills);
+  },
+  computed: {
+    besoinEstValide() {
+      return this.email_entreprise.length > 0 && this.description_besoin.length > 0 &&
+        this.competence_besoin.length > 0;
     }
   },
 }
@@ -22,19 +45,13 @@ export default {
     <textarea v-model="description_besoin" id="description_besoin" name="description_besoin" placeholder="description"
       required></textarea>
 
-    <label for="competence_BR">Bricolage</label>
-    <input v-model="competence_besoin" type="radio" id="competence_BR" name="competence_besoin" value="BR">
-    <label for="competence_JD"> Jardinage </label>
-    <input v-model="competence_besoin" type="radio" id="competence_JD" name="competence_besoin" value="JD">
-    <label for="competence_MN"> Ménage </label>
-    <input v-model="competence_besoin" type="radio" id="competence_MN" name="competence_besoin" value="MN">
-    <label for="competence_IF"> Informatique </label>
-    <input v-model="competence_besoin" type="radio" id="competence_IF" name="competence_besoin" value="IF">
-    <label for="competence_AD">Accompagnement dans les démarches administratives</label>
-    <input v-model="competence_besoin" type="radio" id="competence_AD" name="competence_besoin" value="AD">
-
+    <div v-if="skills.length > 0" v-for="skill in skills">
+      <input v-model="competence_besoin" type="radio" :id="skill.title" name="competence_besoin" :value="skill.title">
+      <label :for="skill.title">{{ skill.description }}</label>
+    </div>
   </div>
-  <button @click="creerBesoin">Créer le besoin</button>
+  <button :disabled="!besoinEstValide" @click="creerBesoin">Créer le besoin</button>
+  <div v-if="error">{{ error }}</div>
 </template>
 
 <style lang="scss" scoped></style>
