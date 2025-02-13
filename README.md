@@ -35,4 +35,6 @@ Se rendre sur http://docketu.iutnc.univ-lorraine.fr:45556
 Il faut avoir docker d'installer avec docker compose
 et ensuite faire un simple docker compose up --build -d
 
+On attend environ 10 secondes
+
 ensuite on accede au site en allant sur http://localhost:45556
