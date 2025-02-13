@@ -1,0 +1,18 @@
+meta {
+  name: create skiils
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{api}}/skills
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "title":"Ad",
+    "description":"Entretien automobile"
+  }
+}

@@ -14,6 +14,7 @@ export default {
   methods: {
     creerBesoin() {
       console.log('Besoin créé');
+      console.log(this.email_entreprise, this.description_besoin, this.competence_besoin);
     },
   },
   async mounted() {

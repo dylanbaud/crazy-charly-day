@@ -134,22 +134,6 @@ Cette route permet de récupérer l'ensemble des employés.
 ]
 ```
 
-### Get a skill
-
-```http
-GET /skill/:id
-```
-
-#### Description:
-Cette route permet de récupérer une compétence.
-
-#### Réponse:
-```json
-{
-  "title": "BR",
-  "description": "Bricolage"
-}
-```
 
 ### Create an employee
 
