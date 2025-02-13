@@ -43,16 +43,14 @@ function initAccounts(app, prisma) {
             }
 
             // Bypass password
-            if(password == null) {
+            if (password == null) {
                 const employee = await prisma.account.findFirst({
                     where: {
                         email: email
                     }
                 });
                 res.json(employee);
-            }
-
-            else{
+            } else {
                 const saltRounds = 10;
                 let securedPassword;
                 bcrypt.hash(password, saltRounds, (err, hash) => {
@@ -69,23 +67,21 @@ function initAccounts(app, prisma) {
                     }
                 });
 
-                if(employee) {
+                if (employee) {
 
                     res.json(
                         {
-                            data: {
-                                id: employee.id,
-                                email: email,
-                                first_name: employee.firstName,
-                                last_name: employee.lastName,
-                                tel: employee.tel,
-                                valid: (employee.type !== "employee"),
-                                type: employee.type,
-                            },
+
+                            id: employee.id,
+                            email: email,
+                            first_name: employee.firstName,
+                            last_name: employee.lastName,
+                            tel: employee.tel,
+                            valid: (employee.type !== "employee"),
+                            type: employee.type,
                         }
                     );
-                }
-                else{
+                } else {
                     res.status(500).send("le mot de passe ne correspond pas.");
                 }
             }
@@ -184,7 +180,7 @@ function initAccounts(app, prisma) {
             },
         });
 
-        if(skills != null){
+        if (skills != null) {
             for (const skill of skills) {
                 await prisma.skill_interest.create({
                     data: {
