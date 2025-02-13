@@ -74,6 +74,7 @@ function initAccounts(app, prisma) {
                     res.json(
                         {
                             data: {
+                                id: employee.id,
                                 email: email,
                                 first_name: employee.firstName,
                                 last_name: employee.lastName,
@@ -121,7 +122,6 @@ function initAccounts(app, prisma) {
     app.post('/employees', async (req, res) => {
         try {
             const {email, lastName, firstName, tel, skills, password} = req.body;
-            console.log(req.body);
 
             if (email == null || lastName == null || firstName == null || tel == null || password == null) {
                 res.status(400).json({
