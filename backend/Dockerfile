@@ -1,4 +1,4 @@
-FROM node:18
+FROM node:latest
 
 WORKDIR /app
 
@@ -7,9 +7,9 @@ RUN npm install
 
 COPY . .
 
+RUN npx prisma db pull
 RUN npx prisma generate
 
-EXPOSE 3000
+EXPOSE 4000
 
-CMD ["npm", "start"]
-
+CMD ["node", "server.js"]
