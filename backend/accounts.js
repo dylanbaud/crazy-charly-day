@@ -49,25 +49,26 @@ function initAccounts(app, prisma) {
                     }
                 });
                 res.json(employee);
-                return;
             }
 
-            const saltRounds = 10;
-            let securedPassword;
-            bcrypt.hash(password, saltRounds, (err, hash) => {
-                if (err){
-                    res.status(500).send(err);
-                }
-                securedPassword = hash;
-            });
+            else{
+                const saltRounds = 10;
+                let securedPassword;
+                bcrypt.hash(password, saltRounds, (err, hash) => {
+                    if (err) {
+                        res.status(500).send(err);
+                    }
+                    securedPassword = hash;
+                });
 
-            const employee = await prisma.account.findFirst({
-                where: {
-                    email: email,
-                    password: securedPassword
-                }
-            });
-            res.json(employee);
+                const employee = await prisma.account.findFirst({
+                    where: {
+                        email: email,
+                        password: securedPassword
+                    }
+                });
+                res.json(employee);
+            }
         } catch (error) {
             res.status(500).send(error);
         }
