@@ -1,5 +1,6 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import LoginStatus from './components/LoginStatus.vue';
 </script>
 
 <template>
@@ -11,6 +12,8 @@ import { RouterLink, RouterView } from 'vue-router'
           <RouterLink to="/">Home</RouterLink>
           <RouterLink :to="{ name: 'create-besoin' }">Créer un besoin</RouterLink>
           <RouterLink :to="{ name: 'create-skill' }">Créer une compétence</RouterLink>
+          <RouterLink :to="{ name: 'login' }">Login</RouterLink>
+          <LoginStatus />
         </nav>
       </div>
     </header>
