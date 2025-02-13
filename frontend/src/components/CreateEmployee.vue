@@ -60,9 +60,9 @@ export default {
     <input v-model="tel" id="tel" type="tel" required />
 
     <div v-for="skill in skills" :key="skill.id">
-      <label :for="skill.title">{{ skill.description }}</label>
       <input v-model="skills_input[skill.id]" type="number" :key="skill.id" :id="skill.title" min="0" max="10"
         step="1" />
+      <label :for="skill.title">{{ skill.description }}</label>
     </div>
 
     <button type="submit" @click="submit" :disabled="!canSubmit">Créer une employee</button>

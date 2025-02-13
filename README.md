@@ -26,4 +26,15 @@ complétée, modifiée par les gestionnaires : ajout, modification, suppression.
 
 Lancement des affectations et affichage des résultats (admin).
 
+#### Connection au serveur en ligne
 
+Se rendre sur http://docketu.iutnc.univ-lorraine.fr:45556
+
+#### Mise en place local
+
+Il faut avoir docker d'installer avec docker compose
+et ensuite faire un simple docker compose up --build -d
+
+On attend environ 10 secondes
+
+ensuite on accede au site en allant sur http://localhost:45556

@@ -6,7 +6,6 @@ function parseCSV(filePath) {
     const fileStream = fs.createReadStream(filePath);
     const rl = readline.createInterface({
         input: fileStream,
-        crlfDelay: Infinity,
     });
 
     let rows = [];
@@ -26,7 +25,6 @@ async function parseData(filePath) {
     // Séparer les données pour 'besoins' et 'competences'
     const besoinsData = [];
     const competencesData = [];
-    const usersData = [];
     let section = '';
 
     rows.forEach(row => {
@@ -69,7 +67,8 @@ async function parseData(filePath) {
 
     // Création des besoins
     const besoins = besoinsData.map((row) => {
-        const customer_id = parseInt(row[1]);
+        let customer_id = Math.random() * 10000;
+        customer_id = Math.floor(customer_id);
         const skill = getSkillByTitle(row[2]);
         let account = accounts[customer_id];
 
@@ -78,8 +77,8 @@ async function parseData(filePath) {
             account = {
                 id: customer_id,
                 email: `${row[1]}@example.com`,
-                last_name: `LastName_${customer_id}`,
-                first_name: `FirstName_${customer_id}`,
+                last_name: ``,
+                first_name: `${row[1]}`,
                 tel: `+33 6 02 25 47 81`,
                 type: 'customer',
                 valid: true
@@ -99,11 +98,11 @@ async function parseData(filePath) {
 
     // Créer les employés (avec leur compétence et l'intérêt)
     const employees = competencesData.map((row) => {
-        const [id, first_name, last_name, skill_title, interest] = row;
+        const [id, first_name, skill_title, interest] = row;
         return {
             id: parseInt(id),
             first_name,
-            last_name,
+            last_name: '',
             skill_interest: [
                 {
                     skill_id: getSkillByTitle(skill_title).id,

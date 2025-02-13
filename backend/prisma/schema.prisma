@@ -15,7 +15,6 @@ model account {
   tel                            String           @unique(map: "tel") @db.VarChar(255)
   type                           account_type
   valid                          Boolean
-  password                       String?          @db.VarChar(255)
   need                           need[]
   skill_interest                 skill_interest[]
   task_task_employee_idToaccount task[]           @relation("task_employee_idToaccount")
