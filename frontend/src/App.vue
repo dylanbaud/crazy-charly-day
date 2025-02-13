@@ -1,6 +1,26 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router'
 import LoginStatus from './components/LoginStatus.vue';
+import { computed } from 'vue';
+import { mapActions, mapState } from 'pinia';
+import { useAuthStore } from './stores/authStore';
+export default {
+  components: {
+    RouterLink,
+    RouterView,
+    LoginStatus,
+  },
+  computed: {
+    ...mapState(useAuthStore, ['id_user']),
+    ...mapState(useAuthStore, ['isCustomerValue']),
+  },
+  methods: {
+    ...mapActions(useAuthStore, ['isCustomer']),
+  },
+  mounted() {
+    console.log(this.isCustomer())
+  },
+}
 </script>
 
 <template>
@@ -8,10 +28,11 @@ import LoginStatus from './components/LoginStatus.vue';
     <header>
       <h1> Job Dating ❤️❤️ Netlordes</h1>
       <div class="wrapper">
+        <p v-if="isCustomerValue">Connecté en tant que client</p>
         <nav>
           <RouterLink to="/">Home</RouterLink>
-          <RouterLink :to="{ name: 'create-besoin' }">Créer un besoin</RouterLink>
-          <RouterLink :to="{ name: 'create-skill' }">Créer une compétence</RouterLink>
+          <RouterLink v-if="isCustomerValue" :to="{ name: 'create-besoin' }">Créer un besoin</RouterLink>
+          <RouterLink v-if="isCustomerValue" :to="{ name: 'create-skill' }">Créer une compétence</RouterLink>
           <RouterLink :to="{ name: 'login' }">Login</RouterLink>
           <LoginStatus />
         </nav>
