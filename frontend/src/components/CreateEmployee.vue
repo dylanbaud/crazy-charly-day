@@ -8,6 +8,7 @@ export default {
       firstName: '',
       lastName: '',
       tel: '',
+      password: '',
       skills: [],
       skills_input: {},
       error: "",
@@ -15,7 +16,8 @@ export default {
   },
   computed: {
     canSubmit() {
-      return this.email.length > 0 && this.firstName.length > 0 && this.lastName.length > 0 && this.tel.length > 0
+      return this.email.length > 0 && this.firstName.length > 0 && this.lastName.length > 0 &&
+        this.tel.length > 0 && this.password.length > 0
     }
   },
   async mounted() {
@@ -36,7 +38,8 @@ export default {
       }
 
       try {
-        createUser(this.email, this.firstName, this.lastName, this.tel, skills_filtered)
+        await createUser(this.email, this.firstName, this.lastName, this.tel, skills_filtered, this.password)
+        this.$router.push({ name: 'home' })
       } catch (e) {
         this.error = e.message;
       }
@@ -58,6 +61,9 @@ export default {
 
     <label for="tel">Phone Number</label>
     <input v-model="tel" id="tel" type="tel" required />
+
+    <label for="password">Mot de passe </label>
+    <input v-model="password" id="password" type="password" required />
 
     <div v-for="skill in skills" :key="skill.id">
       <input v-model="skills_input[skill.id]" type="number" :key="skill.id" :id="skill.title" min="0" max="10"
