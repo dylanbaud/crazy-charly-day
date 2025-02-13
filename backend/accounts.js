@@ -9,7 +9,7 @@ function initAccounts(app, prisma) {
         res.json(employees);
     });
 
-    app.post('/create-employee', async (req, res) => {
+    app.post('/employee', async (req, res) => {
         const {email, lastName, firstName, tel, skills} = req.body;
 
         if (email == null || lastName == null || firstName == null || tel == null) {

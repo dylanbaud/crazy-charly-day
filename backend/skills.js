@@ -8,7 +8,7 @@ function initSkills(app, prisma) {
     });
 
     //create skill
-    app.post('/create-skill', async (req, res) => {
+    app.post('/skill', async (req, res) => {
         const {title, description} = req.body;
 
         if (!title || !description) {
@@ -28,7 +28,7 @@ function initSkills(app, prisma) {
     });
 
     //update skill
-    app.put('/update-skill/:id', async (req, res) => {
+    app.put('/skill/:id', async (req, res) => {
         const {id} = req.params;
         const {title, description} = req.body;
 
@@ -51,7 +51,7 @@ function initSkills(app, prisma) {
     });
 
     //delete skill
-    app.delete('/delete-skill/:id', async (req, res) => {
+    app.delete('/skill/:id', async (req, res) => {
         const {id} = req.params;
 
         const skill = await prisma.skill.delete({

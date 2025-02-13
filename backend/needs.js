@@ -1,14 +1,20 @@
 const needsPerPage = 5;
+
 function initNeeds(app, prisma) {
     //get ALL needs
     app.get('/needs', async (req, res) => {
-        const needs = await prisma.need.findMany();
+        const needs = await prisma.need.findMany({
+            include: {
+                account: true,
+                skill: true,
+            }
+        });
 
         res.json(needs);
     });
 
     //create need
-    app.post('/create-need', async (req, res) => {
+    app.post('/need', async (req, res) => {
         const {customer_id, description, skill_id, need_index} = req.body;
 
         if (!customer_id || !description || !skill_id || !need_index) {
@@ -32,7 +38,7 @@ function initNeeds(app, prisma) {
     app.get('/needs/:page', async (req, res) => {
         const {page} = req.params;
 
-        const minId = (page-1) * 5;
+        const minId = (page - 1) * 5;
         const maxId = (page) * 5;
 
         const needs = await prisma.need.findMany({
@@ -41,6 +47,10 @@ function initNeeds(app, prisma) {
                     gt: minId,
                     lte: maxId,
                 },
+            },
+            include: {
+                account: true,
+                skill: true,
             }
         });
 
@@ -53,6 +63,10 @@ function initNeeds(app, prisma) {
         const needs = await prisma.need.findMany({
             where: {
                 customer_id: parseInt(customer_id),
+            },
+            include: {
+                account: true,
+                skill: true,
             }
         });
 
@@ -60,7 +74,7 @@ function initNeeds(app, prisma) {
     });
 
     //update need
-    app.put('/update-need/:id', async (req, res) => {
+    app.put('/need/:id', async (req, res) => {
         const {id} = req.params;
         const {description, skill_id, need_index} = req.body;
 
