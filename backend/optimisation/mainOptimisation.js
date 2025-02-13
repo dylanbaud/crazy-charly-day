@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = "csv_2025/etudiant/00_exemple/metier_1.csv";
+const algo = require('./algorithme/algoSimple');
 
 // Fonction pour lire un fichier CSV et parser les données
 function readCSV(filePath) {
@@ -32,40 +33,8 @@ function loadData(filePath) {
 
 // Fonction d’optimisation pour affecter les salariés aux besoins
 function optimizeAssignments(needs, employees) {
-    let assignments = [];
-    let clientNeedsCount = {};
-    let employeeAssigned = new Set();
-    let clientServed = new Set();
-    let totalScore = 0;
-
-    for (let need of needs) {
-        let bestMatch = null;
-        let bestScore = -1;
-
-        for (let emp of employees) {
-            if (emp.skill === need.type && !employeeAssigned.has(emp.name)) {
-                let score = emp.interest - (clientNeedsCount[need.client] || 0);
-                if (score > bestScore) {
-                    bestScore = score;
-                    bestMatch = emp;
-                }
-            }
-        }
-
-        if (bestMatch) {
-            assignments.push({ employee: bestMatch.name, needType: need.type, client: need.client });
-            employeeAssigned.add(bestMatch.name);
-            clientNeedsCount[need.client] = (clientNeedsCount[need.client] || 0) + 1;
-            clientServed.add(need.client);
-            totalScore += Math.max(1, bestMatch.interest - (clientNeedsCount[need.client] - 1));
-        }
-    }
-
-    let unassignedEmployees = employees.filter(emp => !employeeAssigned.has(emp.name));
-    totalScore -= unassignedEmployees.length * 10;
-    totalScore -= (new Set(needs.map(n => n.client)).size - clientServed.size) * 10;
-
-    return { totalScore, assignments };
+        const algoInstance = new algo();
+    return algoInstance.optimizeAssignments(needs, employees);
 }
 
 // Sauvegarde des résultats en CSV
@@ -80,5 +49,6 @@ function saveResults(filePath, results) {
 // Exécution du programme
 const { needs, employees } = loadData(path);
 const results = optimizeAssignments(needs, employees);
-saveResults(path.join(__dirname, 'results.csv'), results);
-console.log('Optimisation terminée, résultats enregistrés dans results.csv');
+const pathRes = path.replace("metier_1", "metier_1_resultat");
+saveResults(pathRes, results);
+console.log('Optimisation terminée, résultats enregistrés dans ' + pathRes);
