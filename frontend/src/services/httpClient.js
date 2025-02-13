@@ -64,9 +64,10 @@ const createNeed = (customer_id, description, skill_id) => {
   return request('/needs', 'POST', true, body)
 }
 
-const getUser = (email) => {
+const getUser = (email, password) => {
   const body = {
     email: email,
+    password: password,
   }
   return request(`/login`, 'POST', true, body)
 }

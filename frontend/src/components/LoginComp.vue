@@ -8,6 +8,7 @@ export default {
     return {
       email: '',
       error: '',
+      password: '',
     }
   },
   computed: {
@@ -16,7 +17,8 @@ export default {
   methods: {
     async login() {
       try {
-        const user = await getUser(this.email)
+
+        const user = await getUser(this.email, this.password)
         if (user === null) {
           this.error = "email non valide"
           return
@@ -26,6 +28,7 @@ export default {
         this.setRoleUser(user.type)
         this.setEmailUser(user.email)
       } catch (e) {
+        console.error(e)
         this.error = e.message
       }
     },
@@ -42,6 +45,8 @@ export default {
     <div id="formulaire">
       <label for="email">Email</label>
       <input v-model="email" type="email" id="email" name="email" placeholder="email" required>
+      <label for="password">Mot de passe</label>
+      <input v-model="password" type="password" id="password" name="password" placeholder="password" required>
       <button :disabled="!email.length > 0" @click="login">Se connecter</button>
     </div>
     <div v-if="error">{{ error }}</div>
