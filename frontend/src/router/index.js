@@ -6,6 +6,7 @@ import LoginComp from '@/components/LoginComp.vue'
 import { useAuthStore } from '@/stores/authStore'
 import NeedsList from '@/components/NeedsList.vue'
 import CreateEmployee from '@/components/CreateEmployee.vue'
+import NeedsCustomerList from '@/components/NeedsCustomerList.vue'
 import EmployeesList from '@/components/EmployeesList.vue'
 import SkillsList from '@/components/SkillsList.vue'
 import AffectTask from '@/components/AffectTask.vue'
@@ -42,9 +43,9 @@ const router = createRouter({
       meta: { requireAdmin: true },
     },
     {
-      path: '/needslist',
-      name: 'needs-list',
-      component: NeedsList,
+      path: '/needscustomerlist',
+      name: 'needs-customer-list',
+      component: NeedsCustomerList,
       meta: { requireCustomer: true },
     },
     {
@@ -63,6 +64,12 @@ const router = createRouter({
       path: '/affecttask',
       name: 'affect-task',
       component: AffectTask,
+      meta: { requireAdmin: true },
+    },
+    {
+      path: '/needslist',
+      name: 'needs-list',
+      component: NeedsList,
       meta: { requireAdmin: true },
     },
   ],

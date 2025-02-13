@@ -83,7 +83,7 @@ const createUser = (email, lastName, firstName, tel, skills) => {
   const body = { email: email, lastName: lastName, firstName: firstName, tel: tel, skills: skills }
   return request('/employees', 'POST', true, body)
 }
-export const getEmployees = () => {
+const getEmployees = () => {
   return request('/employees', 'GET')
 }
 
