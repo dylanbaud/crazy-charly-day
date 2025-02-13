@@ -13,9 +13,16 @@
 - Les gestionnaires peuvent valider ou refuser une candidature
 
 ### Pages backend
-- Gloutonne
+Implémentation des algorithmes d’affectation suivante :
+- Stratégie gloutonne
 - Backtracking
-- Mariage
+- Algorithme de Gale-Shapley (algorithme de mariage stable)
+
+Fonctionnalité de la durée des besoins dans le back-end (pas eu le temps de l'implémenter en front-end):
+- Chaque tâche à une durée de début et une durée de fin, quand un employé est affecté à une tâche, il ne peut pas être affecté à une autre tâche afin la durée de fin de sa tâche en cours.
+  ( endpoint /free-employees ).
+- Quand un employé est affecté à une tâche, d'autres employés ne peuvent pas être affectés à la même tâche.
+  ( endpoint /free-needs ).
 
 # Dépôt du projet de l'équipe Netlordes #
 
