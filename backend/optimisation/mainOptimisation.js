@@ -104,3 +104,5 @@ const algo = new Algo();
         console.error("Erreur lors de l'exécution :", error);
     }
 })();
+
+module.exports = saveResults;

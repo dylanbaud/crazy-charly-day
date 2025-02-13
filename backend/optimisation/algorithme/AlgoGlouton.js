@@ -21,7 +21,6 @@ class AlgoGlouton extends AlgoInterface {
                         }
                     }
                 }
-
             }
 
             if (bestMatch) {
