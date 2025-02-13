@@ -46,25 +46,13 @@ export default {
     <h2>Créer un besoin en personnel</h2>
 
     <label for="description_besoin">Description du besoin</label>
-    <textarea
-      v-model="description_besoin"
-      id="description_besoin"
-      name="description_besoin"
-      placeholder="Décrivez le besoin en quelques phrases"
-      maxlength="255"
-      required
-    ></textarea>
+    <textarea v-model="description_besoin" id="description_besoin" name="description_besoin"
+      placeholder="Décrivez le besoin en quelques phrases" maxlength="255" required></textarea>
 
     <div class="liste" v-if="skills.length > 0">
       <div class="skill-option" v-for="skill in skills" :key="skill.id">
-        <input
-          v-model="competence_besoin"
-          type="radio"
-          :id="`skill-${skill.id}`"
-          name="competence_besoin"
-          :value="skill.id"
-          required
-        />
+        <input v-model="competence_besoin" type="radio" :id="`skill-${skill.id}`" name="competence_besoin"
+          :value="skill.id" required />
         <label :for="`skill-${skill.id}`">{{ skill.description }}</label>
       </div>
     </div>
@@ -124,11 +112,13 @@ export default {
       font-style: italic;
     }
   }
+
   .liste {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 1rem;
   }
+
   .skill-option {
     display: flex;
     align-items: center;
@@ -199,5 +189,4 @@ export default {
     }
   }
 }
-
 </style>
