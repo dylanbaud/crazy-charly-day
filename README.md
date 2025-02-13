@@ -10,9 +10,9 @@ des information de contact du client, pas besoin si le client est connécté
 
 
 #### Admin
-Affichage de la liste des besoins (annonces), on montre le client, la compétence et la description  
+- [x]Affichage de la liste des besoins (annonces), on montre le client, la compétence et la description  
 
-Création d'un nouveau salarié, (nom, compétences réalisables)
+- [ ]Création d'un nouveau salarié, (nom, compétences réalisables)
 Les compétences doivent pouvoir être choisies dans une liste pour ceux déjà
 recensés. Chaque compétence affectée à un salarié est accompagnée d’une note (entre 1
 et 10)qui indique l'intérêt du salarié pour cette compétence.  

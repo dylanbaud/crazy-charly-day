@@ -10,6 +10,9 @@ export const useAuthStore = defineStore('counter', {
     isCustomerValue() {
       return this.role_user === 'customer'
     },
+    isAdmin() {
+      return this.role_user === 'administrator'
+    },
   },
   actions: {
     setIdUser(id) {
