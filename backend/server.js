@@ -17,6 +17,13 @@ app.use(cors(
         methods: ['GET', 'POST', 'PUT', 'DELETE'],
     }
 ));
+
+app.options('*', cors(
+    {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    }));
+
 app.use(express.json());
 
 app.listen(port, () => {
