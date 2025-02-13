@@ -45,9 +45,9 @@ https://github.com/dylanbaud/crazy-charly-day
 
 ## URL ##
 
-- http://docketu.iutnc.univ-lorraine.fr:45556)
+- http://docketu.iutnc.univ-lorraine.fr:45556
 
-##  Partie application Web##
+##  Partie application Web ##
 
 ### Liste des numéros de fonctionnalités implantées ###
 
