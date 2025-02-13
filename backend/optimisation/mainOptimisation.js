@@ -1,6 +1,6 @@
 const fs = require('fs');
 // Ligne ci-dessous à changer selon l'algorithme utilisé
-const Algo = require('./algorithme/AlgoBacktracking');
+const Algo = require('./algorithme/AlgoGaleEtShapley');
 
 /**
  * Fonction asynchrone pour reprendre les données de la BD.
@@ -19,8 +19,8 @@ async function getDataFromDB() {
  * @returns {Promise<any>} Promesse contenant un json avec les besoins.
  */
 async function getNeedsFromDB() {
-    // Fetch sur l'endpoint pour obtenir les besoins
-    return await fetch('http://localhost:4000/needs')
+    // Fetch sur l'endpoint pour obtenir les besoins qui n'ont pas encore d'employés assignés
+    return await fetch('http://localhost:45555/free-needs')
         .then(response => response.json())
         .then(data => {
             return data;
@@ -36,7 +36,7 @@ async function getNeedsFromDB() {
  */
 async function getSkillInterestFromDB() {
     // Fetch sur l'endpoint pour obtenir les employés qui sont libres (qui n'ont pas de tâches en cours)
-    return await fetch('http://localhost:4000/free-employees')
+    return await fetch('http://localhost:45555/free-employees')
         .then(response => response.json())
         .then(data => {
             return data;
@@ -67,7 +67,7 @@ async function saveResults(filePath, results) {
         const finishDate = new Date(today);
         finishDate.setDate(finishDate.getDate() + 1);
         // On envoie des données à la BD via un fetch avec une méthode POST
-        const response = await fetch('http://localhost:4000/tasks', {
+        const response = await fetch('http://localhost:45555/tasks', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
