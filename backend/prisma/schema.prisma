@@ -65,7 +65,6 @@ model task {
   account_task_employee_idToaccount account  @relation("task_employee_idToaccount", fields: [employee_id], references: [id], onDelete: Cascade, map: "employee_id")
   need                              need     @relation(fields: [need_id], references: [id], onDelete: Cascade, map: "need_key")
 
-  @@index([customer_id], map: "customer_id")
   @@index([employee_id], map: "employee_id")
   @@index([need_id], map: "need_key")
 }
