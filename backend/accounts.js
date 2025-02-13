@@ -5,6 +5,9 @@ function initAccounts(app, prisma) {
             const employees = await prisma.account.findMany({
                 where: {
                     type: "employee"
+                },
+                include: {
+                    skill_interest: true
                 }
             });
             res.json(employees);
