@@ -27,6 +27,18 @@ function initNeeds(app, prisma) {
             res.json(need);
         }
     });
+
+    //get ALL needs of a customer
+    app.get('/needs/:customer_id', async (req, res) => {
+        const {customer_id} = req.params;
+        const needs = await prisma.need.findMany({
+            where: {
+                customer_id: parseInt(customer_id),
+            }
+        });
+
+        res.json(needs);
+    });
 }
 
 module.exports = {initNeeds};
