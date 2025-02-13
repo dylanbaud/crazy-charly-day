@@ -16,7 +16,7 @@ function initAccounts(app, prisma) {
         }
     });
 
-    app.get('/account/:id', async (req, res) => {
+    app.get('/accounts/:id', async (req, res) => {
         try {
             const {id} = req.params;
             const employee = await prisma.account.findUnique({
@@ -51,7 +51,7 @@ function initAccounts(app, prisma) {
         }
     });
 
-    app.post('/employee', async (req, res) => {
+    app.post('/employees', async (req, res) => {
         try {
             const {email, lastName, firstName, tel, skills} = req.body;
 
