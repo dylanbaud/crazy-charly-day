@@ -9,16 +9,11 @@ function initNeeds(app, prisma) {
             let needs;
 
             if(page != null) {
-                const minId = (page - 1) * needsPerPage;
-                const maxId = (page) * needsPerPage;
+                const skip = (page - 1) * needsPerPage;
 
                 needs = await prisma.need.findMany({
-                    where: {
-                        id: {
-                            gt: minId,
-                            lte: maxId,
-                        },
-                    },
+                    skip: skip,
+                    take: needsPerPage,
                     include: {
                         account: true,
                         skill: true,
