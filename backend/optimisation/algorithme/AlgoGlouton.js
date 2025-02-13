@@ -21,16 +21,12 @@ class AlgoGlouton extends AlgoInterface {
                         }
                     }
                 }
-
             }
 
             if (bestMatch) {
                 assignments[need.id] = {need: need, employee: bestMatch}
                 totalScore += bestScore - (minus[need['customer_id']] || 0);
                 employees = employees.filter(emp => emp["id"] !== bestMatch["id"]);
-
-                console.log("minus:", (minus[need['customer_id']] || 0))
-                console.log("minus client:", need['customer_id'])
 
                 if(!minus[need['customer_id']]){
                     minus[need['customer_id']] = 1;
