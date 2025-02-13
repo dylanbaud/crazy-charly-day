@@ -66,4 +66,12 @@ const getUser = (email) => {
   return request(`/login`, 'POST', true, body)
 }
 
-export { getSkills, createSkill, createNeed, getUser }
+const getNeeds = () => {
+  return request('/needs', 'GET')
+}
+
+const getNeedsCustomer = (customer_id) => {
+  return request(`/needs/${customer_id}`, 'GET')
+}
+
+export { getSkills, createSkill, createNeed, getUser, getNeeds, getNeedsCustomer }

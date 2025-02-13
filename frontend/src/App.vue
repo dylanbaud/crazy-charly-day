@@ -13,6 +13,7 @@ export default {
   computed: {
     ...mapState(useAuthStore, ['id_user']),
     ...mapState(useAuthStore, ['isCustomerValue']),
+    ...mapState(useAuthStore, ['isAdmin']),
   },
   methods: {
     ...mapActions(useAuthStore, ['isCustomer']),
@@ -28,11 +29,11 @@ export default {
     <header>
       <h1> Job Dating ❤️❤️ Netlordes</h1>
       <div class="wrapper">
-        <p v-if="isCustomerValue">Connecté en tant que client</p>
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink v-if="isCustomerValue" :to="{ name: 'create-besoin' }">Créer un besoin</RouterLink>
           <RouterLink v-if="isCustomerValue" :to="{ name: 'create-skill' }">Créer une compétence</RouterLink>
+          <RouterLink v-if="isCustomerValue" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink>
           <RouterLink :to="{ name: 'login' }">Login</RouterLink>
           <LoginStatus />
         </nav>

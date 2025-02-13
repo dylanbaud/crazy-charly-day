@@ -48,7 +48,7 @@ export default {
 
     <label for="description_besoin">Description du besoin </label>
     <textarea v-model="description_besoin" id="description_besoin" name="description_besoin" placeholder="description"
-      required></textarea>
+      maxlength="255" required></textarea>
 
     <div v-if="skills.length > 0" v-for="skill in skills">
       <input v-model="competence_besoin" type="radio" :id="skill.title" name="competence_besoin" :value="skill.id"
