@@ -40,7 +40,9 @@ https://github.com/dylanbaud/crazy-charly-day
 #### Connection au serveur en ligne
 
 Se rendre sur http://docketu.iutnc.univ-lorraine.fr:45556
-
+Emails : 
+`client@mail.com`
+`admin@mail.com`  
 #### Mise en place local
 
 Il faut avoir docker d'installer avec docker compose
