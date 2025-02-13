@@ -13,6 +13,20 @@ function initAccounts(app, prisma) {
         }
     });
 
+    app.get('/employees/:empId', async (req, res) => {
+        try {
+            const {empId} = req.params;
+            const employee = await prisma.account.findMany({
+                where: {
+                    id: empId
+                }
+            });
+            res.json(employee);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
     app.post('/employee', async (req, res) => {
         try {
             const {email, lastName, firstName, tel, skills} = req.body;
