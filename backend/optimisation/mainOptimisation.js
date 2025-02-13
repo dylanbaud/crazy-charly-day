@@ -1,6 +1,6 @@
 const fs = require('fs');
 // Ligne ci-dessous à changer selon l'algorithme utilisé
-const Algo = require('./algorithme/AlgoBacktracking');
+const Algo = require('./algorithme/AlgoGaleEtShapley');
 
 /**
  * Fonction asynchrone pour reprendre les données de la BD.
@@ -19,8 +19,8 @@ async function getDataFromDB() {
  * @returns {Promise<any>} Promesse contenant un json avec les besoins.
  */
 async function getNeedsFromDB() {
-    // Fetch sur l'endpoint pour obtenir les besoins
-    return await fetch('http://localhost:4000/needs')
+    // Fetch sur l'endpoint pour obtenir les besoins qui n'ont pas encore d'employés assignés
+    return await fetch('http://localhost:4000/free-needs')
         .then(response => response.json())
         .then(data => {
             return data;

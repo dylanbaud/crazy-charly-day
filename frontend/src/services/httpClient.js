@@ -1,6 +1,5 @@
-//const BASE_URL = 'http://docketu.iutnc.univ-lorraine.fr:45555'
+const BASE_URL = 'http://docketu.iutnc.univ-lorraine.fr:45555'
 //const BASE_URL = 'http://localhost:45555'
-const BASE_URL = 'http://localhost:4000'
 const request = async (
   endpoint,
   method = 'GET',
