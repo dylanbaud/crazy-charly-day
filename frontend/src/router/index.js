@@ -8,6 +8,7 @@ import NeedsList from '@/components/NeedsList.vue'
 import CreateEmployee from '@/components/CreateEmployee.vue'
 import EmployeesList from '@/components/EmployeesList.vue'
 import SkillsList from '@/components/SkillsList.vue'
+import AffectTask from '@/components/AffectTask.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,12 @@ const router = createRouter({
       path: '/skillsList',
       name: 'skills-list',
       component: SkillsList,
+      meta: { requireAdmin: true },
+    },
+    {
+      path: '/affecttask',
+      name: 'affect-task',
+      component: AffectTask,
       meta: { requireAdmin: true },
     },
   ],

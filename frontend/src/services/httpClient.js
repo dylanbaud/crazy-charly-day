@@ -87,6 +87,18 @@ export const getEmployees = () => {
   return request('/employees', 'GET')
 }
 
+const getGaleEtShapley = () => {
+  return request('/galeEtShapley', 'GET')
+}
+
+const getGlouton = () => {
+  return request('/glouton', 'GET')
+}
+
+const getBacktracking = () => {
+  return request('/backtracking', 'GET')
+}
+
 export {
   getSkills,
   createSkill,
@@ -95,5 +107,9 @@ export {
   getNeeds,
   getNeedsCustomer,
   createUser,
+  getEmployees,
+  getGaleEtShapley,
+  getGlouton,
+  getBacktracking,
   deleteSkill,
 }
