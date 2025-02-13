@@ -58,7 +58,9 @@ function initAccounts(app, prisma) {
                     type: "employee",
                     task_task_employee_idToaccount: {
                         none: {
-                            finished: false,
+                            finish_date: {
+                                lte: new Date()
+                            },
                         },
                     }
                 },

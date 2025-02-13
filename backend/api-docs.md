@@ -184,6 +184,41 @@ Cette route permet de récupérer l'ensemble des employés.
 }
 ```
 
+### Get free employees
+
+```http
+GET /free-employees
+```
+
+#### Description:
+
+Cette route permet de récupérer l'ensemble des employés disponibles.
+
+#### Réponse:
+
+```json
+[
+  {
+    "id": 1,
+    "email": "albert.morel@email.com",
+    "last_name": "Morel",
+    "first_name": "Albert",
+    "tel": "+33 6 12 34 56 78",
+    "type": "employee",
+    "valid": true
+  },
+  {
+    "id": 2,
+    "email": "bertrand.lefevre@email.com",
+    "last_name": "Lefevre",
+    "first_name": "Bertrand",
+    "tel": "+33 6 98 76 54 32",
+    "type": "employee",
+    "valid": true
+  }
+]
+```
+
 ### Login
 
 ```http
@@ -393,5 +428,32 @@ Cette route permet de récupérer l'ensemble des besoins par page.
 ]
 ```
 
+## Tasks :
+
+### Add a task
+
+```http
+POST /tasks
+```
+
+#### Description:
+Cette route permet de créer une nouvelle tâche.
+
+#### Paramètres:
+- `need_id`: Id du besoin
+- `employee_id`: Id de l'employé
+- `start_date`: Date de début
+- `finish_date`: Date de fin
+
+#### Réponse:
+
+```json
+{
+  "need_id": 1,
+  "employee_id": 1,
+  "start_date": "2021-06-01:00:00:00",
+  "finish_date": "2021-06-02:00:00:00"
+}
+```
 
 
