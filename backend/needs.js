@@ -39,6 +39,30 @@ function initNeeds(app, prisma) {
 
         res.json(needs);
     });
+
+    //update need
+    app.put('/update-need/:id', async (req, res) => {
+        const {id} = req.params;
+        const {description, skill_id, need_index} = req.body;
+
+        if (!description || !skill_id || !need_index) {
+            res.status(400).json({
+                message: 'Missing arguments',
+            })
+        } else {
+            const need = await prisma.need.update({
+                where: {
+                    id: parseInt(id),
+                },
+                data: {
+                    description,
+                    skill_id,
+                    need_index,
+                }
+            });
+            res.json(need);
+        }
+    });
 }
 
 module.exports = {initNeeds};
