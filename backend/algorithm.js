@@ -18,10 +18,6 @@ async function handleAlgorithm(algoClass, res) {
 
         const assignments = algo.optimizeAssignments(needs, employees)
 
-        assignments.forEach(assignment => {
-
-        })
-
         res.json(assignments);
     } catch (error) {
         res.status(500).json({ error: error.message });
