@@ -1,9 +1,9 @@
 ### Pages front à faire de base
-Page d'accueil  
-"Connexion", on ne se connecte pas, on precise juste l'email du client  
+- [x]Page d'accueil  
+- [x]"Connexion", on ne se connecte pas, on precise juste l'email du client  
 
 #### Client
-Expression de besoin:
+- [x]Expression de besoin:
 entreprise peut créer un besoin (une annonce), 
 en precisant la compétenc du besion ( BR JD MN IF AD), une description du besoin
 des information de contact du client, pas besoin si le client est connécté  
