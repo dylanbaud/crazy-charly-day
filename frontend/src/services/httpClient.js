@@ -51,6 +51,10 @@ const createSkill = (title, description) => {
   return request('/skills', 'POST', true, body)
 }
 
+const deleteSkill = (skill_id) => {
+  return request(`/skills/${skill_id}`, 'DELETE');
+}
+
 const createNeed = (customer_id, description, skill_id) => {
   const body = {
     customer_id: customer_id,
@@ -79,4 +83,4 @@ export const getEmployees = () => {
   return request('/employees', 'GET')
 }
 
-export { getSkills, createSkill, createNeed, getUser, getNeeds, getNeedsCustomer }
+export { getSkills, createSkill, createNeed, getUser, getNeeds, getNeedsCustomer, deleteSkill }

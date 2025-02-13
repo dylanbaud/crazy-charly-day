@@ -1,9 +1,22 @@
 <script>
-import {getNeeds, getSkills} from '@/services/httpClient';
+import {deleteSkill, getSkills} from '@/services/httpClient';
 import { useAuthStore } from '@/stores/authStore';
 import { mapState } from 'pinia';
 
 export default {
+  methods: {
+    async load() {
+      try {
+        this.skills = await getSkills();
+      } catch (e) {
+        this.error = e.message;
+      }
+    },
+    async deleteSkillAndUpdate(skillId) {
+      await deleteSkill(skillId);
+      await this.load();
+    },
+  },
   data() {
     return {
       skills: [],
@@ -11,11 +24,7 @@ export default {
     }
   },
   async mounted() {
-    try {
-      this.skills = await getSkills();
-    } catch (e) {
-      this.error = e.message;
-    }
+    await this.load()
   },
   computed: {
     ...mapState(useAuthStore, ['isAdmin']),
@@ -31,6 +40,7 @@ export default {
   <div v-for="skill in skills" :key="skill.id" class="skill-info">
       <h3>{{ skill.title }}</h3>
       <p>{{ skill.description }}</p>
+      <button @click="deleteSkillAndUpdate(skill.id)">Supprimer</button>
   </div>
 </template>
 
