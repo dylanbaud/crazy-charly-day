@@ -38,8 +38,8 @@ function initNeeds(app, prisma) {
         const needs = await prisma.need.findMany({
             where: {
                 id: {
-                    gte: minId,
-                    lt: maxId,
+                    gt: minId,
+                    lte: maxId,
                 },
             }
         });
