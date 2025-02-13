@@ -1,0 +1,17 @@
+meta {
+  name: login
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{api}}/login
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "email": "bertrand.lefevre@email.com"
+  }
+}
