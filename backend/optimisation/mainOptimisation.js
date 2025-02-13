@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = "csv_2025/etudiant/00_exemple/metier_1.csv";
-const Algo = require('./algorithme/AlgoGlouton');
+const Algo = require('./algorithme/AlgoGaleEtShapley');
 
 // Fonction pour lire un fichier CSV et parser les données
 function readCSV(filePath) {
