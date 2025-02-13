@@ -13,12 +13,12 @@ function initAccounts(app, prisma) {
         }
     });
 
-    app.get('/account/:empId', async (req, res) => {
+    app.get('/account/:id', async (req, res) => {
         try {
-            const {empId} = req.params;
+            const {id} = req.params;
             const employee = await prisma.account.findUnique({
                 where: {
-                    id: parseInt(empId)
+                    id: parseInt(id)
                 }
             });
             res.json(employee);
