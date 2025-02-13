@@ -16,5 +16,8 @@ export const useAuthStore = defineStore('counter', {
     setEmailUser(email) {
       this.email_user = email
     },
+    isCustomer() {
+      return this.role_user === 'customer'
+    },
   },
 })
