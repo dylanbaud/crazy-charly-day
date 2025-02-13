@@ -47,7 +47,6 @@ class AlgoGaleEtShapley extends AlgoInterface {
                 while(!assignments[need.id]) {
 
                     const preferredEmployee = nRanking[need.id][0];
-                    console.log(preferredEmployee);
                     if (!preferredEmployee.hasJob) {
                         assignments[need.id] = {need: need, employee: preferredEmployee};
                         preferredEmployee.hasJob = true;
@@ -76,9 +75,6 @@ class AlgoGaleEtShapley extends AlgoInterface {
         const minus = {};
         Object.values(assignments).forEach(({ need, employee }) => {
             totalScore += employee.skill_interest[need.skill_id] - (minus[need['customer_id']] || 0);
-
-            console.log("minus:", (minus[need['customer_id']] || 0))
-            console.log("minus client:", need['customer_id'])
 
             if(!minus[need['customer_id']]){
                 minus[need['customer_id']] = 1;
