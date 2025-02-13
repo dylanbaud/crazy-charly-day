@@ -2,6 +2,7 @@
 import { createSkill } from '@/services/httpClient';
 
 export default {
+  emits: ['create-skill'],
   data() {
     return {
       skill_description: '',
@@ -16,6 +17,7 @@ export default {
         this.skill = await createSkill(this.skill_title, this.skill_description);
         console.log('Compétence créée');
         console.log(this.skill);
+        this.$emit('create-skill')
       } catch (e) {
         this.error = e.message;
       }
@@ -41,6 +43,6 @@ export default {
     <textarea v-model="skill_description" id="skill_description" name="skill_description" placeholder="description"
       required>
     </textarea>
-    <button :disabled="!canCreateSkill" @click="creerCompetence">Créer la compétence</button>
+    <button :disabled="!canCreateSkill" @click="() => creerCompetence()">Créer la compétence</button>
   </div>
 </template>
