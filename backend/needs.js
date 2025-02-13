@@ -4,14 +4,35 @@ function initNeeds(app, prisma) {
     //get ALL needs
     app.get('/needs', async (req, res) => {
         try {
+            const {page} = req.query;
 
+            let needs;
 
-            const needs = await prisma.need.findMany({
-                include: {
-                    account: true,
-                    skill: true,
-                }
-            });
+            if(page != null) {
+                const minId = (page - 1) * needsPerPage;
+                const maxId = (page) * needsPerPage;
+
+                needs = await prisma.need.findMany({
+                    where: {
+                        id: {
+                            gt: minId,
+                            lte: maxId,
+                        },
+                    },
+                    include: {
+                        account: true,
+                        skill: true,
+                    }
+                });
+            }
+            else {
+                needs = await prisma.need.findMany({
+                    include: {
+                        account: true,
+                        skill: true,
+                    }
+                });
+            }
 
             res.json(needs);
         } catch (err) {
@@ -39,32 +60,6 @@ function initNeeds(app, prisma) {
 
                 res.json(need);
             }
-        } catch (err) {
-            res.status(500).send(err);
-        }
-    });
-
-    app.get('/needs/:page', async (req, res) => {
-        try {
-            const {page} = req.params;
-
-            const minId = (page - 1) * needsPerPage;
-            const maxId = (page) * needsPerPage;
-
-            const needs = await prisma.need.findMany({
-                where: {
-                    id: {
-                        gt: minId,
-                        lte: maxId,
-                    },
-                },
-                include: {
-                    account: true,
-                    skill: true,
-                }
-            });
-
-            res.json(needs);
         } catch (err) {
             res.status(500).send(err);
         }
