@@ -1,5 +1,7 @@
 <script>
 import { createNeed, getSkills } from '@/services/httpClient';
+import { useAuthStore } from '@/stores/authStore';
+import { mapState } from 'pinia';
 
 export default {
   data() {
@@ -8,13 +10,12 @@ export default {
       competence_besoin: -1,
       skills: [],
       error: '',
-      customerId: 1,
     }
   },
   methods: {
     async creerBesoin() {
       try {
-        const need = await createNeed(this.customerId, this.description_besoin, this.competence_besoin);
+        const need = await createNeed(this.id_user, this.description_besoin, this.competence_besoin);
         console.log(need)
       } catch (e) {
         this.error = e.message;
@@ -33,8 +34,9 @@ export default {
   computed: {
     besoinEstValide() {
       return this.description_besoin.length > 0 &&
-        this.competence_besoin !== 0;
-    }
+        this.competence_besoin !== 0 && this.id_user !== 0;
+    },
+    ...mapState(useAuthStore, ['id_user']),
   },
 }
 </script>

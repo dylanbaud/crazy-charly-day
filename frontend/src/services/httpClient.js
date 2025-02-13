@@ -56,7 +56,14 @@ const createNeed = (customer_id, description, skill_id) => {
     description: description,
     skill_id: skill_id,
   }
-  return request('/need', 'POST', true, body)
+  return request('/needs', 'POST', true, body)
 }
 
-export { getSkills, createSkill, createNeed }
+const getUser = (email) => {
+  const body = {
+    email: email,
+  }
+  return request(`/login`, 'POST', true, body)
+}
+
+export { getSkills, createSkill, createNeed, getUser }
