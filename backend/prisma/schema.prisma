@@ -8,15 +8,17 @@ datasource db {
 }
 
 model account {
-  id             Int              @id @default(autoincrement())
-  email          String           @unique(map: "email") @db.VarChar(255)
-  last_name      String           @db.VarChar(255)
-  first_name     String           @db.VarChar(255)
-  tel            String           @unique(map: "tel") @db.VarChar(12)
-  type           account_type
-  valid          Boolean
-  need           need[]
-  skill_interest skill_interest[]
+  id                             Int              @id @default(autoincrement())
+  email                          String           @unique(map: "email") @db.VarChar(255)
+  last_name                      String           @db.VarChar(255)
+  first_name                     String           @db.VarChar(255)
+  tel                            String           @unique(map: "tel") @db.VarChar(12)
+  type                           account_type
+  valid                          Boolean
+  need                           need[]
+  skill_interest                 skill_interest[]
+  task_task_customer_idToaccount task[]           @relation("task_customer_idToaccount")
+  task_task_employee_idToaccount task[]           @relation("task_employee_idToaccount")
 }
 
 model need {
@@ -24,8 +26,10 @@ model need {
   customer_id Int
   description String  @db.VarChar(255)
   skill_id    Int
+  need_num    Int
   account     account @relation(fields: [customer_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "customer_key")
   skill       skill   @relation(fields: [skill_id], references: [id], onDelete: Cascade, onUpdate: Restrict, map: "skill_key")
+  task        task[]
 
   @@index([customer_id], map: "customer_key")
   @@index([skill_id], map: "skill_key")
@@ -47,6 +51,23 @@ model skill_interest {
 
   @@id([employee_id, skill_id])
   @@index([skill_id], map: "skill_key2")
+}
+
+model task {
+  id                                Int      @id @default(autoincrement())
+  need_id                           Int
+  customer_id                       Int
+  employee_id                       Int
+  start_date                        DateTime @db.Date
+  finish_date                       DateTime @db.Date
+  finished                          Boolean
+  account_task_customer_idToaccount account  @relation("task_customer_idToaccount", fields: [customer_id], references: [id], onDelete: Cascade, map: "customer_id")
+  account_task_employee_idToaccount account  @relation("task_employee_idToaccount", fields: [employee_id], references: [id], onDelete: Cascade, map: "employee_id")
+  need                              need     @relation(fields: [need_id], references: [id], onDelete: Cascade, map: "need_key")
+
+  @@index([customer_id], map: "customer_id")
+  @@index([employee_id], map: "employee_id")
+  @@index([need_id], map: "need_key")
 }
 
 enum account_type {
