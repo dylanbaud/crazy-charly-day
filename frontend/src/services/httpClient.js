@@ -52,7 +52,7 @@ const createSkill = (title, description) => {
 }
 
 const deleteSkill = (skill_id) => {
-  return request(`/skills/${skill_id}`, 'DELETE');
+  return request(`/skills/${skill_id}`, 'DELETE')
 }
 
 const createNeed = (customer_id, description, skill_id) => {
@@ -79,8 +79,32 @@ const getNeedsCustomer = (customer_id) => {
   return request(`/needs/${customer_id}`, 'GET')
 }
 
-export const getEmployees = () => {
+const getEmployees = () => {
   return request('/employees', 'GET')
 }
 
-export { getSkills, createSkill, createNeed, getUser, getNeeds, getNeedsCustomer, deleteSkill }
+const getGaleEtShapley = () => {
+  return request('/galeEtShapley', 'GET')
+}
+
+const getGlouton = () => {
+  return request('/glouton', 'GET')
+}
+
+const getBacktracking = () => {
+  return request('/backtracking', 'GET')
+}
+
+export {
+  getSkills,
+  createSkill,
+  createNeed,
+  getUser,
+  getNeeds,
+  getNeedsCustomer,
+  getEmployees,
+  getGaleEtShapley,
+  getGlouton,
+  getBacktracking,
+  deleteSkill,
+}

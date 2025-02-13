@@ -36,6 +36,7 @@ export default {
           <RouterLink v-if="isCustomerValue" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink>
 
           <RouterLink v-if="isAdmin" :to="{ name: 'employees-list' }">Liste des employés</RouterLink>
+          <RouterLink v-if="isAdmin" :to="{ name: 'affect-task' }">Affecter les tâches</RouterLink>
           <RouterLink v-if="isAdmin" :to="{ name: 'skills-list' }">Liste des compétences</RouterLink>
           <RouterLink :to="{ name: 'login' }">Login</RouterLink>
           <LoginStatus />
