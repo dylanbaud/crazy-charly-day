@@ -85,6 +85,28 @@ function initNeeds(app, prisma) {
         }
     });
 
+    //get free needs
+    app.get('/free-needs', async (req, res) => {
+        try {
+            const needs = await prisma.need.findMany({
+                where: {
+                    task: {
+                        none: {}
+                    }
+                },
+                include: {
+                    account: true,
+                    skill: true,
+                    task: true,
+                }
+            });
+
+            res.json(needs);
+        } catch (err) {
+            res.status(500).send(err);
+        }
+    });
+
     //update need
     app.put('/needs/:id', async (req, res) => {
         try {
