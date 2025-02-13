@@ -9,7 +9,7 @@ function initAccounts(app, prisma) {
         res.json(employees);
     });
 
-    app.post('/create-employee', (req, res) => {
+    app.post('/create-employee', async (req, res) => {
         const {email, lastName, firstName, tel, skills} = req.body;
 
         if (email == null || lastName == null || firstName == null || tel == null) {
@@ -17,7 +17,7 @@ function initAccounts(app, prisma) {
                 message: 'Missing arguments',
             })
         } else {
-            const employee = prisma.user.create({
+            const employee = await prisma.account.create({
                 data: {
                     email: email,
                     first_name: firstName,
@@ -28,15 +28,15 @@ function initAccounts(app, prisma) {
                 },
             });
 
-            skills.forEach(skill => {
-                prisma.skill_interest.create({
+            for (const skill of skills) {
+                await prisma.skill_interest.create({
                     data: {
                         employee_id: employee.id,
                         skill_id: skill.id,
                         interest: skill.interest
                     }
                 })
-            });
+            }
 
             res.json({
                 data: employee,
