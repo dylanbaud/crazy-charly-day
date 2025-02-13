@@ -49,7 +49,15 @@ function initAccounts(app, prisma) {
                         email: email
                     }
                 });
-                res.json(employee);
+                res.json({
+                    id: employee.id,
+                    email: email,
+                    first_name: employee.firstName,
+                    last_name: employee.lastName,
+                    tel: employee.tel,
+                    valid: (employee.type !== "employee"),
+                    type: employee.type,
+                });
             } else {
                 const saltRounds = 10;
                 let securedPassword;
@@ -71,7 +79,6 @@ function initAccounts(app, prisma) {
 
                     res.json(
                         {
-
                             id: employee.id,
                             email: email,
                             first_name: employee.firstName,
