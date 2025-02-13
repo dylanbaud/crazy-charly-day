@@ -1,5 +1,5 @@
-const BASE_URL = 'http://docketu.iutnc.univ-lorraine.fr:45555'
-//const BASE_URL = 'http://localhost:4000'
+//const BASE_URL = 'http://docketu.iutnc.univ-lorraine.fr:45555'
+const BASE_URL = 'http://localhost:4000'
 const request = async (
   endpoint,
   method = 'GET',
@@ -75,4 +75,9 @@ const getNeedsCustomer = (customer_id) => {
   return request(`/needs/${customer_id}`, 'GET')
 }
 
-export { getSkills, createSkill, createNeed, getUser, getNeeds, getNeedsCustomer }
+const createUser = (email, lastName, firstName, tel, skills) => {
+  const body = { email: email, lastName: lastName, firstName: firstName, tel: tel, skills: skills }
+  return request('/employees', 'POST', true, body)
+}
+
+export { getSkills, createSkill, createNeed, getUser, getNeeds, getNeedsCustomer, createUser }

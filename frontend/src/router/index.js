@@ -5,6 +5,7 @@ import CreateSkills from '@/components/CreateSkills.vue'
 import LoginComp from '@/components/LoginComp.vue'
 import { useAuthStore } from '@/stores/authStore'
 import NeedsList from '@/components/NeedsList.vue'
+import CreateEmployee from '@/components/CreateEmployee.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -30,6 +31,12 @@ const router = createRouter({
       name: 'create-skill',
       component: CreateSkills,
       meta: { requireCustomer: true },
+    },
+    {
+      path: '/createemployee',
+      name: 'create-employee',
+      component: CreateEmployee,
+      //meta: { requireCustomer: true },
     },
     {
       path: '/needslist',

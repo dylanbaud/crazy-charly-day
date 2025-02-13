@@ -35,6 +35,7 @@ export default {
           <RouterLink v-if="isCustomerValue" :to="{ name: 'create-skill' }">Créer une compétence</RouterLink>
           <RouterLink v-if="isCustomerValue" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink>
           <RouterLink :to="{ name: 'login' }">Login</RouterLink>
+          <RouterLink :to="{ name: 'create-employee' }">Créer un employé</RouterLink>
           <LoginStatus />
         </nav>
       </div>
