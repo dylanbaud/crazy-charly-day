@@ -26,6 +26,36 @@ complétée, modifiée par les gestionnaires : ajout, modification, suppression.
 
 Lancement des affectations et affichage des résultats (admin).
 
+
+
+
+# Dépôt du projet de l'équipe Netlordes #
+
+https://github.com/dylanbaud/crazy-charly-day
+
+## Liste des membres ##
+
+    - BAUDSON Dylan (IL-1)
+    - DAZA Sasha (DWM-1)
+    - FONTANEZ Antoine (IL-2)
+    - PEDRETTI Zack (IL-1)
+    - PINOT Gaetan (DWM- 1)
+    - SLIMANI Robin (DACS)
+    - TOUSSAINT Jarod (IL-1)
+
+## URL ##
+
+- des dépôts git
+- de l'application finale
+
+##  Partie application Web##
+
+### Liste des numéros de fonctionnalités implantées ###
+
+<!-- Énumération de la liste, commentaires au besoin -->
+
+##  Déploiement ##
+
 #### Connection au serveur en ligne
 
 Se rendre sur http://docketu.iutnc.univ-lorraine.fr:45556
