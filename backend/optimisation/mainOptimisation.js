@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = "csv_2025/etudiant/00_exemple/metier_1.csv";
-const algo = require('./algorithme/algoSimple');
+const Algo = require('./algorithme/AlgoGlouton');
 
 // Fonction pour lire un fichier CSV et parser les données
 function readCSV(filePath) {
@@ -31,12 +31,6 @@ function loadData(filePath) {
     return { needs, employees };
 }
 
-// Fonction d’optimisation pour affecter les salariés aux besoins
-function optimizeAssignments(needs, employees) {
-        const algoInstance = new algo();
-    return algoInstance.optimizeAssignments(needs, employees);
-}
-
 // Sauvegarde des résultats en CSV
 function saveResults(filePath, results) {
     let output = [`${results.totalScore}`];
@@ -47,8 +41,9 @@ function saveResults(filePath, results) {
 }
 
 // Exécution du programme
+const algo = new Algo();
 const { needs, employees } = loadData(path);
-const results = optimizeAssignments(needs, employees);
+const results = algo.optimizeAssignments(needs, employees);
 const pathRes = path.replace("metier_1", "metier_1_resultat");
 saveResults(pathRes, results);
 console.log('Optimisation terminée, résultats enregistrés dans ' + pathRes);
