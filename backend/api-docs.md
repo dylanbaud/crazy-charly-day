@@ -170,7 +170,7 @@ Cette route permet de récupérer une compétence.
 ### Create an employee
 
 ```http
-POST /create-employee
+POST /employee
 ```
 
 #### Description:
@@ -296,6 +296,42 @@ GET /needs/:customer_id
 #### Description:
 
 Cette route permet de récupérer l'ensemble des besoins d'un client.
+
+#### Réponse:
+
+```json
+[
+  {
+    "id": 1,
+    "customer": {
+      "id": 1,
+      "email": "albert.morel@email.com",
+      "last_name": "Morel",
+      "first_name": "Albert",
+      "tel": "+33 6 12 34 56 78",
+      "type": "customer",
+      "valid": true
+    },
+    "skill": {
+      "id": 1,
+      "title": "BR",
+      "description": "Bricolage"
+    },
+    "need_index": 1
+  }
+]
+```
+
+### Get needs by page number
+
+```http
+GET /needs/:page
+```
+
+#### Description:
+Cette route permet de récupérer l'ensemble des besoins par page.
+
+#### Réponse:
 
 #### Réponse:
 
