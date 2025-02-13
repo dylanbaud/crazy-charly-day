@@ -1,6 +1,7 @@
 const {PrismaClient} = require('@prisma/client');
 const {initAccounts} = require("./accounts");
 const {initNeeds} = require("./needs");
+const {initSkills} = require("./skills");
 
 const express = require('express');
 const app = express();
@@ -16,4 +17,5 @@ app.listen(port, () => {
 });
 
 initNeeds(app, prisma);
+initSkills(app, prisma);
 initAccounts(app, prisma);
