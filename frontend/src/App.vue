@@ -9,6 +9,7 @@ import { RouterLink, RouterView } from 'vue-router'
       <div class="wrapper">
         <nav>
           <RouterLink to="/">Home</RouterLink>
+          <RouterLink :to="{ name: 'create-besoin' }">Créer un besoin</RouterLink>
         </nav>
       </div>
     </header>
