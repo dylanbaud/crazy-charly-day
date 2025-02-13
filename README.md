@@ -29,7 +29,7 @@ Lancement des affectations et affichage des résultats (admin).
 
 
 
-# Dépôt du projet de l'équipe xxx #
+# Dépôt du projet de l'équipe Netlordes #
 
 https://github.com/dylanbaud/crazy-charly-day
 
