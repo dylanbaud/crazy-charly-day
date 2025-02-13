@@ -10,6 +10,7 @@ import { RouterLink, RouterView } from 'vue-router'
         <nav>
           <RouterLink to="/">Home</RouterLink>
           <RouterLink :to="{ name: 'create-besoin' }">Créer un besoin</RouterLink>
+          <RouterLink :to="{ name: 'create-skill' }">Créer une compétence</RouterLink>
         </nav>
       </div>
     </header>

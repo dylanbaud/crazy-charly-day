@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import CreateBesoin from '@/components/CreateBesoin.vue'
+import CreateSkills from '@/components/CreateSkills.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/createbesoin',
       name: 'create-besoin',
       component: CreateBesoin,
+    },
+    {
+      path: '/createskills',
+      name: 'create-skill',
+      component: CreateSkills,
     },
   ],
 })

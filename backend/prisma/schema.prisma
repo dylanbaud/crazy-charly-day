@@ -37,7 +37,7 @@ model need {
 
 model skill {
   id             Int              @id @default(autoincrement())
-  title          String           @db.VarChar(255)
+  title          String           @unique(map: "title") @db.VarChar(255)
   description    String           @db.VarChar(255)
   need           need[]
   skill_interest skill_interest[]
