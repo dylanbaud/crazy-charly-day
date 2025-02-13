@@ -80,8 +80,15 @@ const getNeedsCustomer = (customer_id) => {
   return request(`/needs/${customer_id}`, 'GET')
 }
 
-const createUser = (email, lastName, firstName, tel, skills) => {
-  const body = { email: email, lastName: lastName, firstName: firstName, tel: tel, skills: skills }
+const createUser = (email, lastName, firstName, tel, skills, password) => {
+  const body = {
+    email: email,
+    lastName: lastName,
+    firstName: firstName,
+    tel: tel,
+    skills: skills,
+    password: password,
+  }
   return request('/employees', 'POST', true, body)
 }
 const getEmployees = () => {
