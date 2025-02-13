@@ -122,6 +122,53 @@ function initAccounts(app, prisma) {
         }
     })
 
+    app.get("/unvalidated-employees", async (req, res) => {
+        try {
+            const employees = await prisma.account.findMany({
+                where: {
+                    type: "employee",
+                    valid: false
+                },
+                include: {
+                    task_task_employee_idToaccount: true,
+                    skill_interest: true
+                },
+            });
+
+            res.json(employees);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    })
+
+    app.put("/validate-employee/:id", async (req, res) => {
+        try{
+            const { id } = req.params;
+            const employee = await prisma.account.update({
+                where: {
+                    id: parseInt(id)
+                },
+                data: {
+                    valid: true
+                },
+            });
+            res.json({
+                id: employee.id,
+                email: employee.email,
+                first_name: employee.firstName,
+                last_name: employee.lastName,
+                tel: employee.tel,
+                valid: employee.valid,
+                type: employee.type,
+            });
+        }
+        catch (err) {
+            res.status(500).send(err);
+        }
+    })
+
+    // VALIDER UN EMPLOYEE
+
     app.post('/employees', async (req, res) => {
         try {
             const {email, lastName, firstName, tel, skills, password} = req.body;
