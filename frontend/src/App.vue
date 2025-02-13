@@ -50,26 +50,16 @@ export default {
             <RouterLink v-if="isCustomerValue" :to="{ name: 'create-skill' }">Créer une compétence</RouterLink>
             <RouterLink v-if="isCustomerValue" :to="{ name: 'needs-customer-list' }">Liste des besoins</RouterLink>
 
-<<<<<<< HEAD
             <RouterLink v-if="isAdmin" :to="{ name: 'employees-list' }">Liste des employés</RouterLink>
             <RouterLink v-if="isAdmin" :to="{ name: 'affect-task' }">Affecter les tâches</RouterLink>
             <RouterLink v-if="isAdmin" :to="{ name: 'skills-list' }">Liste des compétences</RouterLink>
+            <RouterLink v-if="isAdmin" :to="{ name: 'create-employee' }">Créer un employé</RouterLink>
             <RouterLink v-if="isAdmin" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink>
+            <RouterLink v-if="isAdmin" :to="{ name: 'valid-employee' }">Valider les employés</RouterLink>
 
             <RouterLink v-if="!id_user" :to="{ name: 'login' }">Login</RouterLink>
             <LoginStatus />
           </div>
-=======
-          <RouterLink v-if="isAdmin" :to="{ name: 'employees-list' }">Liste des employés</RouterLink>
-          <RouterLink v-if="isAdmin" :to="{ name: 'affect-task' }">Affecter les tâches</RouterLink>
-          <RouterLink v-if="isAdmin" :to="{ name: 'skills-list' }">Liste des compétences</RouterLink>
-          <RouterLink v-if="isAdmin" :to="{ name: 'create-employee' }">Créer un employé</RouterLink>
-          <RouterLink v-if="isAdmin" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink>
-          <RouterLink v-if="isAdmin" :to="{ name: 'valid-employee' }">Valider les employés</RouterLink>
-
-          <RouterLink :to="{ name: 'login' }">Login</RouterLink>
-          <LoginStatus />
->>>>>>> e4ea3781a5594eee98ca51c36831a86514ff5d93
         </nav>
       </div>
     </header>
@@ -124,6 +114,7 @@ export default {
             <li><RouterLink v-if="isAdmin" :to="{ name: 'skills-list' }">Liste des compétences</RouterLink></li>
             <li><RouterLink v-if="isAdmin" :to="{ name: 'needs-list' }">Liste des besoins</RouterLink></li>
             <li><RouterLink v-if="isAdmin" :to="{ name: 'affect-task' }">Affecter les tâches</RouterLink></li>
+            <li><RouterLink v-if="isAdmin" :to="{ name: 'valid-employee' }">Valider les employés</RouterLink></li>
 
             <li><RouterLink v-if="!id_user" :to="{ name: 'login' }">Login</RouterLink></li>
           </ul>
