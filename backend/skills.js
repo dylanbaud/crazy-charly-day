@@ -63,6 +63,7 @@ function initSkills(app, prisma) {
 
   //delete skill
   app.delete("/skills/:id", async (req, res) => {
+    console.log("a");
     try {
       const { id } = req.params;
 

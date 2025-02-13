@@ -1,5 +1,5 @@
 <script>
-import { getNeeds, getNeedsCustomer } from '@/services/httpClient';
+import { getNeedsCustomer } from '@/services/httpClient';
 import { useAuthStore } from '@/stores/authStore';
 import { mapState } from 'pinia';
 
@@ -8,7 +8,9 @@ export default {
     return {
       needs: [],
       error: '',
-    }
+      currentPage: 1,
+      itemsPerPage: 6,
+    };
   },
   async mounted() {
     try {
@@ -18,10 +20,32 @@ export default {
     }
   },
   computed: {
-    ...mapState(useAuthStore, ['isAdmin']),
-    ...mapState(useAuthStore, ['id_user']),
-    ...mapState(useAuthStore, ['email_user']),
+    ...mapState(useAuthStore, ['isAdmin', 'id_user', 'email_user']),
+
+    // Compétences affichées en fonction de la pagination
+    paginatedNeeds() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.needs.slice(start, end);
+    },
+
+    // Calcul total de pages
+    totalPages() {
+      return Math.ceil(this.needs.length / this.itemsPerPage);
+    }
   },
+  methods: {
+    nextPage() {
+      if (this.currentPage < this.totalPages) {
+        this.currentPage++;
+      }
+    },
+    prevPage() {
+      if (this.currentPage > 1) {
+        this.currentPage--;
+      }
+    }
+  }
 }
 </script>
 
@@ -29,8 +53,9 @@ export default {
   <h2>Liste de vos besoins ({{ email_user }})</h2>
   <div class="error" v-if="error">{{ error }}</div>
 
+  <!-- Liste des besoins paginée -->
   <div class="liste">
-    <div v-for="need in needs" :key="need.id" class="need-card">
+    <div v-for="need in paginatedNeeds" :key="need.id" class="need-card">
       <!-- Description principale -->
       <h3>{{ need.description }}</h3>
 
@@ -39,12 +64,32 @@ export default {
         <h4>Compétence requise :</h4>
         <p>{{ need.skill.title }} - {{ need.skill.description }}</p>
       </div>
-
-
     </div>
   </div>
-</template>
 
+  <!-- Pagination -->
+  <div class="pagination">
+    <button
+      @click="prevPage"
+      :disabled="currentPage === 1"
+      class="page-btn"
+    >
+      Précédent
+    </button>
+
+    <span class="page-info">
+      Page {{ currentPage }} / {{ totalPages }}
+    </span>
+
+    <button
+      @click="nextPage"
+      :disabled="currentPage === totalPages"
+      class="page-btn"
+    >
+      Suivant
+    </button>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 h2 {
@@ -69,7 +114,7 @@ h2 {
 
 .liste {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 2rem;
   padding: 2rem;
 
@@ -117,7 +162,42 @@ h2 {
       line-height: 1.4;
     }
   }
+}
 
+/* Pagination */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+  gap: 1.5rem;
+
+  .page-btn {
+    padding: 0.6rem 1.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: var(--primary-blue);
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+
+    &:hover:enabled {
+      background-color: var(--accent-green);
+      transform: translateY(-3px);
+    }
+
+    &:disabled {
+      background-color: var(--neutral-grey);
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+
+  .page-info {
+    font-size: 1.2rem;
+    color: var(--primary-blue);
+  }
 }
 
 @media (max-width: 500px) {
@@ -139,8 +219,15 @@ h2 {
     .skill-info p {
       font-size: 0.95rem;
     }
+  }
 
+  .pagination {
+    flex-direction: column;
+    gap: 1rem;
+
+    .page-btn {
+      width: 100%;
+    }
   }
 }
-
 </style>

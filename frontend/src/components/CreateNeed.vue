@@ -55,7 +55,7 @@ export default {
       required
     ></textarea>
 
-    <div v-if="skills.length > 0">
+    <div class="liste" v-if="skills.length > 0">
       <div class="skill-option" v-for="skill in skills" :key="skill.id">
         <input
           v-model="competence_besoin"
@@ -124,7 +124,11 @@ export default {
       font-style: italic;
     }
   }
-
+  .liste {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
   .skill-option {
     display: flex;
     align-items: center;
