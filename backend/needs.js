@@ -22,9 +22,9 @@ function initNeeds(app, prisma) {
     //create need
     app.post('/need', async (req, res) => {
         try {
-            const {customer_id, description, skill_id, need_index} = req.body;
+            const {customer_id, description, skill_id} = req.body;
 
-            if (!customer_id || !description || !skill_id || !need_index) {
+            if (!customer_id || !description || !skill_id) {
                 res.status(400).json({
                     message: 'Missing arguments',
                 })
@@ -34,7 +34,6 @@ function initNeeds(app, prisma) {
                         customer_id,
                         description,
                         skill_id,
-                        need_index,
                     }
                 });
 
@@ -95,9 +94,9 @@ function initNeeds(app, prisma) {
     app.put('/need/:id', async (req, res) => {
         try {
             const {id} = req.params;
-            const {description, skill_id, need_index} = req.body;
+            const {description, skill_id} = req.body;
 
-            if (!description || !skill_id || !need_index) {
+            if (!description || !skill_id) {
                 res.status(400).json({
                     message: 'Missing arguments',
                 })
@@ -109,7 +108,6 @@ function initNeeds(app, prisma) {
                     data: {
                         description,
                         skill_id,
-                        need_index,
                     }
                 });
                 res.json(need);

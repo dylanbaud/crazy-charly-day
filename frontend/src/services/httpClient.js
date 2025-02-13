@@ -42,4 +42,11 @@ const request = async (
 const getSkills = () => {
   return request('/skills', 'GET')
 }
-export { getSkills }
+const createSkill = (title, description) => {
+  const body = {
+    title: title,
+    description: description,
+  }
+  return request('/skills', 'POST', true, body)
+}
+export { getSkills, createSkill }
