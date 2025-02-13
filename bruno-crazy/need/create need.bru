@@ -1,0 +1,19 @@
+meta {
+  name: create need
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{api}}/need
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+   "customer_id":1, 
+   "description":"bricolage", 
+   "skill_id":1
+  }
+}

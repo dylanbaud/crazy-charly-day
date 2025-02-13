@@ -49,4 +49,14 @@ const createSkill = (title, description) => {
   }
   return request('/skills', 'POST', true, body)
 }
-export { getSkills, createSkill }
+
+const createNeed = (customer_id, description, skill_id) => {
+  const body = {
+    customer_id: customer_id,
+    description: description,
+    skill_id: skill_id,
+  }
+  return request('/need', 'POST', true, body)
+}
+
+export { getSkills, createSkill, createNeed }

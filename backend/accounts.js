@@ -27,6 +27,20 @@ function initAccounts(app, prisma) {
         }
     });
 
+    app.post('/login', async (req, res) => {
+        try {
+            const {email} = req.body;
+            const employee = await prisma.account.findFirst({
+                where: {
+                    email: email
+                }
+            });
+            res.json(employee);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+    });
+
     app.post('/employee', async (req, res) => {
         try {
             const {email, lastName, firstName, tel, skills} = req.body;

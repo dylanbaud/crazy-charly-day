@@ -5,7 +5,7 @@ services:
     build: ./backend
     container_name: backend
     ports:
-      - "3000:3000"
+      - "4000:4000"
     environment:
       - DB_HOST=db
       - DB_USER=root
@@ -17,11 +17,11 @@ services:
       - app_network
 
   frontend:
-    build: 
-      context: ./frontend  
+    build:
+      context: ./frontend
     container_name: frontend
     ports:
-      - "8080:80"
+      - "80:80"
     depends_on:
       - backend
     networks:
@@ -52,7 +52,7 @@ services:
       - PMA_USER=root
       - PMA_PASSWORD=rootpassword
     ports:
-      - "8081:80"
+      - "8080:80"
     depends_on:
       - db
     networks:
@@ -61,4 +61,3 @@ services:
 networks:
   app_network:
     driver: bridge
-

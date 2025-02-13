@@ -1,20 +1,25 @@
 <script>
-import { getSkills } from '@/services/httpClient';
+import { createNeed, getSkills } from '@/services/httpClient';
 
 export default {
   data() {
     return {
-      email_entreprise: '',
       description_besoin: '',
-      competence_besoin: '',
+      competence_besoin: -1,
       skills: [],
       error: '',
+      customerId: 1,
     }
   },
   methods: {
-    creerBesoin() {
+    async creerBesoin() {
+      try {
+        const need = await createNeed(this.customerId, this.description_besoin, this.competence_besoin);
+        console.log(need)
+      } catch (e) {
+        this.error = e.message;
+      }
       console.log('Besoin créé');
-      console.log(this.email_entreprise, this.description_besoin, this.competence_besoin);
     },
   },
   async mounted() {
@@ -27,8 +32,8 @@ export default {
   },
   computed: {
     besoinEstValide() {
-      return this.email_entreprise.length > 0 && this.description_besoin.length > 0 &&
-        this.competence_besoin.length > 0;
+      return this.description_besoin.length > 0 &&
+        this.competence_besoin !== 0;
     }
   },
 }
@@ -38,16 +43,14 @@ export default {
   <h2> Créer un besoin en personnel</h2>
 
   <div id="formulaire">
-    <label for="email_entreprise"> Email de l'entreprise </label>
-    <input v-model="email_entreprise" type="email" id="email_entreprise" name="email_entreprise" placeholder="email"
-      required>
 
     <label for="description_besoin">Description du besoin </label>
     <textarea v-model="description_besoin" id="description_besoin" name="description_besoin" placeholder="description"
       required></textarea>
 
     <div v-if="skills.length > 0" v-for="skill in skills">
-      <input v-model="competence_besoin" type="radio" :id="skill.title" name="competence_besoin" :value="skill.title">
+      <input v-model="competence_besoin" type="radio" :id="skill.title" name="competence_besoin" :value="skill.id"
+        required>
       <label :for="skill.title">{{ skill.description }}</label>
     </div>
   </div>
