@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 
-const port = 3000;
+const port = 4000;
 
 app.use(express.json());
 
@@ -16,3 +16,29 @@ app.get('/users', (req, res) => {
     ];
     res.json(users);
 });
+
+//NEEDS
+
+//get ALL needs
+app.get('/needs', (req, res) => {
+    const needs = {};
+    res.json(needs);
+});
+
+app.post('/create-need', (req, res) => {
+    const {description, skill, customer} = req.body;
+
+    if(description==null || skill ==null || customer == null) {
+        res.status(400).json({
+            message: 'Missing arguments',
+        })
+    } else {
+        //TODO
+
+        res.json({
+            message: `Operation done successfully`,
+        });
+    }
+});
+
+//
