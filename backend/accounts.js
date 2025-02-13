@@ -36,10 +36,20 @@ function initAccounts(app, prisma) {
         try {
             const {email, password} = req.body;
 
-            if (email == null || password != null) {
+            if (email == null) {
                 res.status(400).json({
                     message: 'Missing arguments',
                 })
+            }
+
+            if(password == null) {
+                const employee = await prisma.account.findFirst({
+                    where: {
+                        email: email
+                    }
+                });
+                res.json(employee);
+                return;
             }
 
             const saltRounds = 10;
