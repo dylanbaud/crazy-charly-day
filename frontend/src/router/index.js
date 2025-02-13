@@ -6,6 +6,7 @@ import LoginComp from '@/components/LoginComp.vue'
 import { useAuthStore } from '@/stores/authStore'
 import NeedsList from '@/components/NeedsList.vue'
 import EmployeesList from '@/components/EmployeesList.vue'
+import AffectTask from '@/components/AffectTask.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -42,6 +43,12 @@ const router = createRouter({
       path: '/employeeslist',
       name: 'employees-list',
       component: EmployeesList,
+      meta: { requireAdmin: true },
+    },
+    {
+      path: '/affecttask',
+      name: 'affect-task',
+      component: AffectTask,
       meta: { requireAdmin: true },
     }
   ],

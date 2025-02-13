@@ -75,8 +75,31 @@ const getNeedsCustomer = (customer_id) => {
   return request(`/needs/${customer_id}`, 'GET')
 }
 
-export const getEmployees = () => {
+const getEmployees = () => {
   return request('/employees', 'GET')
 }
 
-export { getSkills, createSkill, createNeed, getUser, getNeeds, getNeedsCustomer }
+const getGaleEtShapley = () => {
+  return request('/galeEtShapley', 'GET')
+}
+
+const getGlouton = () => {
+  return request('/glouton', 'GET')
+}
+
+const getBacktracking = () => {
+  return request('/backtracking', 'GET')
+}
+
+export {
+  getSkills,
+  createSkill,
+  createNeed,
+  getUser,
+  getNeeds,
+  getNeedsCustomer,
+  getEmployees,
+  getGaleEtShapley,
+  getGlouton,
+  getBacktracking,
+}
