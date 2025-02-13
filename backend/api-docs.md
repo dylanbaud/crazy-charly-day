@@ -428,5 +428,32 @@ Cette route permet de récupérer l'ensemble des besoins par page.
 ]
 ```
 
+## Tasks :
+
+### Add a task
+
+```http
+POST /tasks
+```
+
+#### Description:
+Cette route permet de créer une nouvelle tâche.
+
+#### Paramètres:
+- `need_id`: Id du besoin
+- `employee_id`: Id de l'employé
+- `start_date`: Date de début
+- `finish_date`: Date de fin
+
+#### Réponse:
+
+```json
+{
+  "need_id": 1,
+  "employee_id": 1,
+  "start_date": "2021-06-01:00:00:00",
+  "finish_date": "2021-06-02:00:00:00"
+}
+```
 
 
