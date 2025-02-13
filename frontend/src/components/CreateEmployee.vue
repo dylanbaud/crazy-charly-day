@@ -30,8 +30,8 @@ export default {
       let skills_filtered = []
       for (const [key, value] of Object.entries(this.skills_input)) {
         skills_filtered.push({
-          id: key,
-          interest: value
+          id: Number(key),
+          interest: Number(value)
         })
       }
 

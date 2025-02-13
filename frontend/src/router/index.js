@@ -38,7 +38,7 @@ const router = createRouter({
       path: '/createemployee',
       name: 'create-employee',
       component: CreateEmployee,
-      //meta: { requireCustomer: true },
+      meta: { requireAdmin: true },
     },
     {
       path: '/needslist',
