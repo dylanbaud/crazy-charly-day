@@ -15,7 +15,34 @@ async function handleAlgorithm(algoClass, res) {
         ]);
 
         const algo = new algoClass();
-        res.json(algo.optimizeAssignments(needs, employees));
+
+        const assignments = algo.optimizeAssignments(needs, employees)
+
+        for (const assignment of assignments) {
+            const { needId, employeeId } = assignment;
+
+            const startDate = new Date();
+            startDate.setHours(startDate.getHours() + 1);
+            const finishDate = new Date(startDate);
+            finishDate.setDate(finishDate.getDate() + 1);
+
+            try {
+                await fetch("http://localhost:45555/tasks", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        need_id: needId,
+                        employee_id: employeeId,
+                        start_date: startDate,
+                        finish_date: finishDate
+                    })
+                });
+            } catch (error) {
+                console.error("Erreur lors de la création de la tâche :", error);
+            }
+        }
+
+        res.json(assignments);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
