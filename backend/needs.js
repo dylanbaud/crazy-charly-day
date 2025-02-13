@@ -1,3 +1,4 @@
+const needsPerPage = 5;
 function initNeeds(app, prisma) {
     //get ALL needs
     app.get('/needs', async (req, res) => {
@@ -26,6 +27,24 @@ function initNeeds(app, prisma) {
 
             res.json(need);
         }
+    });
+
+    app.get('/needs/:page', async (req, res) => {
+        const {page} = req.params;
+
+        const minId = (page-1) * 5;
+        const maxId = (page) * 5;
+
+        const needs = await prisma.need.findMany({
+            where: {
+                id: {
+                    gte: minId,
+                    lt: maxId,
+                },
+            }
+        });
+
+        res.json(needs);
     });
 
     //get ALL needs of a customer
