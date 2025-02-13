@@ -1,18 +1,18 @@
 <script>
-import { getNeeds, getNeedsCustomer } from '@/services/httpClient';
+import {getNeeds, getSkills} from '@/services/httpClient';
 import { useAuthStore } from '@/stores/authStore';
 import { mapState } from 'pinia';
 
 export default {
   data() {
     return {
-      needs: [],
+      skills: [],
       error: '',
     }
   },
   async mounted() {
     try {
-      this.needs = await getNeedsCustomer(this.id_user);
+      this.skills = await getSkills();
     } catch (e) {
       this.error = e.message;
     }
@@ -26,27 +26,20 @@ export default {
 </script>
 
 <template>
-  <h2>Liste de vos besoins ({{ email_user }})</h2>
+  <h2> Liste des compétences</h2>
   <div class="error" v-if="error">{{ error }}</div>
-
   <div class="liste">
-    <div v-for="need in needs" :key="need.id" class="need-card">
-      <!-- Description principale -->
-      <h3>{{ need.description }}</h3>
-
-      <!-- Informations sur la compétence -->
-      <div class="skill-info">
-        <h4>Compétence requise :</h4>
-        <p>{{ need.skill.title }} - {{ need.skill.description }}</p>
-      </div>
-
+    <div v-for="skill in skills" :key="skill.id" class="skill-info">
+        <h3>{{ skill.title }}</h3>
+        <p>{{ skill.description }}</p>
+        <button @click="delet">Delet </button>
 
     </div>
   </div>
 </template>
 
-
 <style lang="scss" scoped>
+
 h2 {
   text-align: center;
   color: var(--primary-blue);
@@ -69,7 +62,7 @@ h2 {
 
 .liste {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
   padding: 2rem;
 
@@ -78,11 +71,11 @@ h2 {
   }
 }
 
-.need-card {
+.skill-info {
   background-color: var(--neutral-beige);
   border: 2px solid var(--accent-green);
   border-radius: 15px;
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
   padding: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   word-wrap: break-word;
@@ -95,51 +88,29 @@ h2 {
   h3 {
     color: var(--primary-blue);
     margin-bottom: 1rem;
-    font-size: 1.6rem;
     border-bottom: 1px solid var(--accent-green);
     padding-bottom: 0.5rem;
-    text-align: center;
-  }
-
-  .skill-info {
-    margin-top: 1rem;
-
-    h4 {
-      color: var(--primary-blue);
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
-    }
-
-    p {
-      color: #333;
-      font-size: 1.05rem;
-      margin: 0;
-      line-height: 1.4;
-    }
-  }
-
-}
-
-@media (max-width: 500px) {
-  h2 {
     font-size: 1.5rem;
   }
 
-  .need-card {
-    padding: 1rem 1.5rem;
+  p {
+    color: #333;
+    font-size: 1.1rem;
+    margin: 0.5rem 0;
+    line-height: 1.5;
+  }
+}
 
+@media (max-width: 500px) {
+  .skill-info {
+    padding: 1rem;
     h3 {
       font-size: 1.3rem;
     }
 
-    .skill-info h4 {
+    p {
       font-size: 1rem;
     }
-
-    .skill-info p {
-      font-size: 0.95rem;
-    }
-
   }
 }
 

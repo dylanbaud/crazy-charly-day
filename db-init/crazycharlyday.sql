@@ -7,6 +7,8 @@
 -- Server version: 10.11.6-MariaDB-0+deb12u1
 -- PHP Version: 8.2.26
 
+CREATE DATABASE IF NOT EXISTS crazycharlyday;
+USE crazycharlyday;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";

@@ -1,20 +1,20 @@
 <script>
-import { getNeeds, getNeedsCustomer } from '@/services/httpClient';
-import { useAuthStore } from '@/stores/authStore';
-import { mapState } from 'pinia';
+import { getEmployees } from '@/services/httpClient'
+import { useAuthStore } from '@/stores/authStore'
+import { mapState } from 'pinia'
 
 export default {
   data() {
     return {
-      needs: [],
+      employees: [],
       error: '',
     }
   },
   async mounted() {
     try {
-      this.needs = await getNeedsCustomer(this.id_user);
+      this.employees = await getEmployees(this.id_user)
     } catch (e) {
-      this.error = e.message;
+      this.error = e.message
     }
   },
   computed: {
@@ -26,21 +26,15 @@ export default {
 </script>
 
 <template>
-  <h2>Liste de vos besoins ({{ email_user }})</h2>
+  <h2>Liste des employés</h2>
   <div class="error" v-if="error">{{ error }}</div>
 
   <div class="liste">
-    <div v-for="need in needs" :key="need.id" class="need-card">
-      <!-- Description principale -->
-      <h3>{{ need.description }}</h3>
-
-      <!-- Informations sur la compétence -->
-      <div class="skill-info">
-        <h4>Compétence requise :</h4>
-        <p>{{ need.skill.title }} - {{ need.skill.description }}</p>
-      </div>
-
-
+    <div v-for="employee in employees" :key="employee.id" class="employee-card">
+      <p>Email: {{ employee.email }}</p>
+      <p>Prénom: {{ employee.first_name }}</p>
+      <p>Nom: {{ employee.last_name }}</p>
+      <p>Numéro de téléphone: {{ employee.tel }}</p>
     </div>
   </div>
 </template>
@@ -69,22 +63,25 @@ h2 {
 
 .liste {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   padding: 2rem;
+  justify-content: center;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
 }
 
-.need-card {
+.employee-card {
   background-color: var(--neutral-beige);
   border: 2px solid var(--accent-green);
   border-radius: 15px;
   box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
   padding: 1.5rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 100%;
+  overflow: hidden;
   word-wrap: break-word;
 
   &:hover {
@@ -92,55 +89,32 @@ h2 {
     box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
   }
 
-  h3 {
-    color: var(--primary-blue);
-    margin-bottom: 1rem;
-    font-size: 1.6rem;
-    border-bottom: 1px solid var(--accent-green);
-    padding-bottom: 0.5rem;
-    text-align: center;
-  }
+  p {
+    margin: 0.5rem 0;
+    font-size: 1.1rem;
 
-  .skill-info {
-    margin-top: 1rem;
-
-    h4 {
+    &:first-of-type {
+      font-weight: bold;
       color: var(--primary-blue);
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
-    }
-
-    p {
-      color: #333;
-      font-size: 1.05rem;
-      margin: 0;
-      line-height: 1.4;
     }
   }
-
 }
+
+@media (max-width: 500px) {
+  .employee-card {
+    padding: 1rem;
+    p {
+      font-size: 1rem;
+    }
+  }
+}
+
 
 @media (max-width: 500px) {
   h2 {
     font-size: 1.5rem;
   }
 
-  .need-card {
-    padding: 1rem 1.5rem;
-
-    h3 {
-      font-size: 1.3rem;
-    }
-
-    .skill-info h4 {
-      font-size: 1rem;
-    }
-
-    .skill-info p {
-      font-size: 0.95rem;
-    }
-
-  }
 }
 
 </style>

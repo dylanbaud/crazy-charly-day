@@ -1,5 +1,6 @@
 const AlgoGaleEtShapley = require("./optimisation/algorithme/AlgoGaleEtShapley");
 const AlgoGlouton = require("./optimisation/algorithme/AlgoGlouton");
+const AlgoBacktracking = require("./optimisation/algorithme/AlgoBacktracking");
 
 async function fetchData(url) {
     const response = await fetch(url, { method: 'GET', headers: { 'Content-Type': 'application/json' } });
@@ -23,6 +24,7 @@ async function handleAlgorithm(algoClass, res) {
 function initAlgorithm(app) {
     app.get("/galeEtShapley", (req, res) => handleAlgorithm(AlgoGaleEtShapley, res));
     app.get("/glouton", (req, res) => handleAlgorithm(AlgoGlouton, res));
+    app.get("/backtracking", (req, res) => handleAlgorithm(AlgoBacktracking, res));
 }
 
 module.exports = { initAlgorithm };
