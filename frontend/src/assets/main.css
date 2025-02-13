@@ -1,21 +1,28 @@
 @import './base.css';
-
-#app {
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+main {
+    max-width: 900px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background-color: var(--neutral-grey);
+    border: 2px solid var(--accent-green);
+    border-radius: 15px;
+    box-shadow: 0 6px 12px var(--accent-green);
+    color: black;
+    line-height: 1.6;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
-  }
+@media (max-width: 600px) {
+    main {
+        padding: 1.5rem;
+    }
+    h2 {
+        font-size: 1.5rem;
+    }
+    h3 {
+        font-size: 1.3rem;
+    }
+    p,
+    li {
+        font-size: 1rem;
+    }
 }
