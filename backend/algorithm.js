@@ -10,8 +10,8 @@ async function fetchData(url) {
 async function handleAlgorithm(algoClass, res) {
     try {
         const [needs, employees] = await Promise.all([
-            fetchData("http://localhost:4000/free-needs"),
-            fetchData("http://localhost:4000/free-employees")
+            fetchData("http://localhost:45555/free-needs"),
+            fetchData("http://localhost:45555/free-employees")
         ]);
 
         const algo = new algoClass();
