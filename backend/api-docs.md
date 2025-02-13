@@ -215,8 +215,7 @@ Cette route permet de récupérer l'ensemble des besoins.
       "id": 1,
       "title": "BR",
       "description": "Bricolage"
-    },
-    "need_index": 1
+    }
   }
 ]
 ```
@@ -228,13 +227,14 @@ POST /needs
 ```
 
 #### Description:
+
 Cette route permet de créer un nouveau besoin.
 
 #### Paramètres:
+
 - `customer_id`: Id du client
 - `description`: Description du besoin
 - `skill_id`: Id de la compétence
-- `need_index`: Index du besoin
 
 #### Réponse:
 
@@ -242,8 +242,7 @@ Cette route permet de créer un nouveau besoin.
 {
   "customer_id": 1,
   "description": "Besoin de bricolage",
-  "skill_id": 1,
-  "need_index": 1
+  "skill_id": 1
 }
 ```
 
@@ -254,12 +253,13 @@ PUT /needs/:id
 ```
 
 #### Description:
+
 Cette route permet de mettre à jour un besoin.
 
 #### Paramètres:
+
 - `description`: Description du besoin
 - `skill_id`: Id de la compétence
-- `need_index`: Index du besoin
 
 #### Réponse:
 
@@ -267,8 +267,7 @@ Cette route permet de mettre à jour un besoin.
 {
   "customer_id": 1,
   "description": "Besoin de bricolage",
-  "skill_id": 1,
-  "need_index": 1
+  "skill_id": 1
 }
 ```
 
@@ -301,8 +300,7 @@ Cette route permet de récupérer l'ensemble des besoins d'un client.
       "id": 1,
       "title": "BR",
       "description": "Bricolage"
-    },
-    "need_index": 1
+    }
   }
 ]
 ```
@@ -314,6 +312,7 @@ GET /needs/:page
 ```
 
 #### Description:
+
 Cette route permet de récupérer l'ensemble des besoins par page.
 
 #### Réponse:
@@ -337,8 +336,7 @@ Cette route permet de récupérer l'ensemble des besoins par page.
       "id": 1,
       "title": "BR",
       "description": "Bricolage"
-    },
-    "need_index": 1
+    }
   }
 ]
 ```
